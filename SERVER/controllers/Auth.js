@@ -154,7 +154,7 @@ exports.signUp = async (req, res) => {
             approved: approved,
             contactNumber,
             additionalDetails: profileDetail._id,
-            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}` // api for creting according to their name
+            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}` // api for creting image according to their name
         })
 
         //return response 

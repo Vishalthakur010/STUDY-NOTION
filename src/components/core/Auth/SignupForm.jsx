@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { ACCOUNT_TYPE } from '../../../utils/constants'
 import { setSignupData } from '../../../slices/authSlice'
-import { sendOTP } from '../../../services/operations/authApi'
+import { sendOTP } from '../../../services/operations/authAPI'
 import Tab from '../../common/Tab'
 
 const SignupForm = () => {

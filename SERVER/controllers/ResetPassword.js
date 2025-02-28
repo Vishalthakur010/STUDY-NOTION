@@ -30,7 +30,7 @@ exports.resetPasswordToken = async (req, res) => {
             { new: true })
 
         //create url
-        const url = `https://localhost:3000/update-password/${token}`
+        const url = `http://localhost:3000/update-password/${token}`
 
         // Send email containing the URL
         try {
@@ -88,7 +88,7 @@ exports.resetPassword = async (req, res) => {
         }
 
         //check token time
-        if (user.resetPasswordExpires > Date.now()) {
+        if (user.resetPasswordExpires < Date.now()) {
             return res.status(401).json({
                 success: false,
                 message: "token is expired, please regenerate your token"

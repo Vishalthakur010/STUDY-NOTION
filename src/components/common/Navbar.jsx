@@ -61,7 +61,7 @@ const Navbar = () => {
                                                                 {link.title === 'Catalog' ?
                                                                         ( //for catalog
                                                                                 <div className='relative flex items-center gap-x-2 group'>
-                                                                                        <p>{link.title}</p>
+                                                                                        <p className='cursor-pointer'>{link.title}</p>
                                                                                         <FaCircleChevronDown />
 
                                                                                         <div className='invisible absolute text-lg font-semibold text-richblack-900 bg-richblack-25 
@@ -107,10 +107,11 @@ const Navbar = () => {
                                                 // add styles
                                                 user && user?.accountType !== "Instructor" && (
                                                         <Link to="/dashboard/cart" className='relative'>
-                                                                <AiOutlineShoppingCart />
+                                                                <AiOutlineShoppingCart className='text-2xl text-richblack-100'/>
                                                                 {
                                                                         totalItems > 0 && (
-                                                                                <span>
+                                                                                <span className='absolute -bottom-2 -right-2 h-5 w-5 text-sm font-semibold rounded-full 
+                                                                                flex items-center justify-center bg-richblack-600 text-yellow-100'>
                                                                                         {totalItems}
                                                                                 </span>
                                                                         )
@@ -143,7 +144,7 @@ const Navbar = () => {
                                                 )
                                         }
 
-                                        {/* profile dropdown */}
+                                        {/*HW:- profile dropdown */}
                                         {
                                                 token != null && <ProfileDropDown />
                                         }

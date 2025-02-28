@@ -24,7 +24,7 @@ const ExploreMore = () => {
                 setCurrentCard(result[0].courses[0].heading)
         }
         return (
-                <div className='flex flex-col items-center gap-5 mt-[180px]'>
+                <div className='flex flex-col items-center gap-5 mt-[180px] sm:mb-[280px] md:mb-0'>
 
                         <div className='text-4xl font-semibold text-center'>
                                 Unlock the
@@ -56,7 +56,7 @@ const ExploreMore = () => {
                         </div>
 
                         {/*course Cards */}
-                        <div className='absolute flex flex-row justify-around gap-10 mt-[220px] z-20'>
+                        <div className='absolute flex flex-col md:flex-row justify-around gap-10 mt-[220px] z-20'>
                                 {
                                         courses.map((course, index) => (
                                                 <CourseCard

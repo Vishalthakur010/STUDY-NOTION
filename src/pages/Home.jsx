@@ -130,7 +130,7 @@ const Home = () => {
                         </div>
 
                         {/* section : 2 */}
-                        <div className='bg-pure-greys-5 text-richblack-700'>
+                        <div className='bg-pure-greys-5 text-richblack-700 sm:pt-[400px] md:pt-0'>
 
                                 {/* Background Image */}
                                 <div className='relative z-0 homepage_bg h-[300px] w-11/12 max-w-maxContent mx-auto flex justify-center items-center'>
