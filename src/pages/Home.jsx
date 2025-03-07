@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { HighlightText } from '../components/core/HomePage/HighlightText';
 import CTAButton from '../components/core/HomePage/Button'
 import banner from '../assets/Images/banner.mp4'
-import CodeBlocks from '../components/core/HomePage/codeBlocks';
+import CodeBlocks from '../components/core/HomePage/CodeBlocks';
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection"
 import TimelineSection from "../components/core/HomePage/TimelineSection"
 import InstructorSection from '../components/core/HomePage/InstructorSection';

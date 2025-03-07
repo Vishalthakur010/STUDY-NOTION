@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import { OpenRoute } from './components/core/Auth/openRoute'
+import { OpenRoute } from "./components/core/Auth/OpenRoute";
+
 
 import Home from "./pages/Home"
 import Login from './pages/Login'
