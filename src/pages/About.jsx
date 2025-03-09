@@ -43,22 +43,22 @@ const About = () => {
             </section>
 
             {/* section 3 */}
-            <section >
+            <section className='border-t border-richblack-500 '>
 
                 {/* founding story */}
-                <div className='flex flex-col lg:flex-row items-center justify-between'>
+                <div className='w-10/12 m-[100px] max-w-maxContent mx-auto flex flex-col lg:flex-row  items-center justify-between pb-10'>
                     {/* left */}
-                    <div>
-                        <h2>
+                    <div className='w-full lg:w-1/2 flex flex-col gap-4'>
+                        <h2 className='text-4xl font-semibold mb-4 bg-gradient-to-b from-[#db2777] via-[#ef4444] to-[#f97316] text-transparent bg-clip-text'>
                             Our Founding Story
                         </h2>
-                        <p>
+                        <p className='text-richblack-300 w-[83%]'>
                             Our e-learning platform was born out of a shared vision and passion
                             for transforming education. It all begin with a group of educators,
                             technologists, and lifelong learners who recognized the need for accessible,
                             flexible, and high-quality learning opportunities in a rapidly evolving digital world.
                         </p>
-                        <p>
+                        <p className='text-richblack-300 w-[83%]'>
                             As experienced educators ourselves, we witnessed firsthand the limitations and challenges
                             of traditional education systems. We believed that education should not be confined to the walls
                             of a classroom or restricted by geographical boundaries. We envisioned a platform that could
@@ -67,19 +67,19 @@ const About = () => {
                     </div>
 
                     {/* right */}
-                    <div>
+                    <div className='w-full lg:w-1/2 flex item-center justify-center'>
                         <img src={foundingStory} />
                     </div>
                 </div>
 
                 {/* vision and mission */}
-                <div className='flex flex-col lg:flex-row items-center justify-between'>
+                <div className='w-10/12 m-[100px] max-w-maxContent mx-auto flex flex-col lg:flex-row  items-center gap-2 '>
                     {/* left */}
-                    <div>
-                        <h2>
+                    <div className='w-full lg:w-1/2 flex flex-col gap-4'>
+                    <h2 className='text-4xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#f59e0b] via-[#fcd34d] to-[#fef9c3]'>
                             Our Vision
                         </h2>
-                        <p>
+                        <p className='text-richblack-300 w-[83%]'>
                             With this vision in mind, we set out on a journey to create an e-learning platform that
                             would revolutionize the way people learn. Our team of dedicated experts worked tirelessly
                             to develop a robust and intuitive platform that combines cutting-edge technology with engaging
@@ -88,11 +88,11 @@ const About = () => {
                     </div>
 
                     {/* right */}
-                    <div>
-                        <h2>
-                            Our Mission
+                    <div className='w-full lg:w-1/2 flex flex-col gap-4'>
+                        <h2 className='text-4xl font-semibold mb-4'>
+                            <HighlightText text={"Our Mission"}/>
                         </h2>
-                        <p>
+                        <p className='text-richblack-300 w-[83%]'>
                             Our mission goes beyond just delivering cources online. We wanted to create a vibrant
                             community of learners, where individuals can connect, collaborate, and learn from one-another.
                             We believe that knowledge thrives in an enviroment of sharing and dialogue, and we foster this
@@ -104,7 +104,7 @@ const About = () => {
             </section>
 
             {/* section 4 */}
-            <section>
+            <section className='bg-richblack-800'>
                 <StatsComponent />
             </section>
 
@@ -120,6 +120,9 @@ const About = () => {
 
             {/* section 7 */}
             <section>
+                <h2 className='text-center text-4xl font-semibold'>
+                    Reviews from other learners
+                </h2>
                 {/* <RatingAndReview/> */}
             </section>
 

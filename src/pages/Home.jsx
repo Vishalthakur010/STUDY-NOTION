@@ -182,7 +182,8 @@ const Home = () => {
                                                 Reviews from other learners
                                         </h2>
 
-                                        {/* Reviews and rating 1:18*/}
+                                        {/* Reviews and rating */}
+                                        {/* <RatingAndReview/> */}
                         </div>
 
 

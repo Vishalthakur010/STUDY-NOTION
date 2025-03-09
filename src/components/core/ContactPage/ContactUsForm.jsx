@@ -50,8 +50,8 @@ const ContactUsForm = () => {
             className='flex flex-col gap-6 mt-10'>
 
             {/* Name */}
-            <div className='flex flex-row gap-x-5 w-full'>
-                <div className='flex flex-col'>
+            <div className='flex flex-row gap-x-5'>
+                <div className='flex flex-col w-1/2'>
                     <label htmlFor="firstname" className='text-richblack-25 text-base mb-2'>First Name</label>
                     <input
                         type="text"
@@ -67,7 +67,7 @@ const ContactUsForm = () => {
                         )
                     }
                 </div>
-                <div className='flex flex-col'>
+                <div className='flex flex-col w-1/2'>
                     <label htmlFor="lastname" className='text-richblack-25 text-base mb-2'>Last Name</label>
                     <input
                         type="text"

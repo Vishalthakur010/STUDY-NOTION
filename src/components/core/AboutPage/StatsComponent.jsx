@@ -9,12 +9,12 @@ const stats =[
 
 const StatsComponent = () => {
   return (
-    <div className='flex flex-col lg:flex-row items-center justify-between'>
+    <div className='w-11/12 max-w-maxContent mx-auto p-[100px] flex flex-col md:flex-row lg:flex-row items-center justify-between'>
         {
             stats.map((stat,index)=>(
                 <div key={index}>
-                    <h2>{stat.count}</h2>
-                    <p>{stat.label}</p>
+                    <h2 className='text-4xl font-semibold'>{stat.count}</h2>
+                    <p className='text-richblack-300 mt-2'>{stat.label}</p>
                 </div>
             ))
         }

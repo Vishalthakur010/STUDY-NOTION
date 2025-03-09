@@ -10,7 +10,7 @@ const LearningGridArray = [
         description:
             "Studynotion partners with more than 275+ leading universities and companies to bring, flexibale, affordable, job-relevant online learning to individuals and organizations worldwide.",
         BtnText: "Learn More",
-        BtnLink: "/"
+        BtnLink: "/signup"
     },
     {
         order: 1,
@@ -44,7 +44,7 @@ const LearningGridArray = [
 
 const LearningGrid = () => {
     return (
-        <div className='w-11/12 max-w-maxContent mx-auto grid grid-cols-1 lg:grid-cols-4'>
+        <div className='w-11/12 mt-[80px] max-w-maxContent mx-auto grid grid-cols-1 lg:grid-cols-4'>
             {
                 LearningGridArray.map((card, index) => (
                     <div
