@@ -144,7 +144,7 @@ const Navbar = () => {
                                                 )
                                         }
 
-                                        {/*HW:- profile dropdown */}
+                                        {/*profile dropdown */}
                                         {
                                                 token != null && <ProfileDropDown />
                                         }

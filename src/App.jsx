@@ -78,6 +78,8 @@ function App() {
             </OpenRoute>
           } />
 
+          <Route path='/dashboard/my-profile' element={<MyProfile/>} />
+
       </Routes>
     </div>
   )
