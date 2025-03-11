@@ -25,7 +25,7 @@ export const SidebarLink = ({ name, path, icon }) => {
                 <div className='flex item-center gap-x-2'>
                     <Icon/>
                     <span>
-                        {name} //45
+                        {name}
                     </span>
                 </div>
 

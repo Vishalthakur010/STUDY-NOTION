@@ -1,13 +1,20 @@
 
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { sidebarLinks } from "../../../data/dashboard-links"
 import { logout } from "../../../services/operations/authAPI"
 import { SidebarLink } from "./SidebarLink"
+import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { VscSignOut } from "react-icons/vsc"
+import { ConfirmationModal } from "../../common/ConfirmationModal"
 
 export const Sidebar = () => {
 
-    const {user,loading:profileLoading} = useSelector( (state) => state.profile)
-    const {loading:authLoading} = useSelector( (state) => state.auth)
+    const { user, loading: profileLoading } = useSelector((state) => state.profile)
+    const { loading: authLoading } = useSelector((state) => state.auth)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [confirmationModal, setConfirmationModal] = useState(null)
 
     if (authLoading || profileLoading) {
         return (
@@ -19,12 +26,12 @@ export const Sidebar = () => {
 
     return (
         <div className="flex flex-col min-w-[250px] border-r-[1px] border-r-richblack-600 
-        h-[calc(100vh-3.5rem)] bg-richblack-800 py-10">
+        h-[calc(100vh-3.5rem)] bg-richblack-800 py-10 text-white">
 
             <div className="flex flex-col">
                 {
-                    sidebarLinks.map( (link) => {
-                        if(link.type && user.accountType !== link.type) return null
+                    sidebarLinks.map((link) => {
+                        if (link.type && user.accountType !== link.type) return null
                         return <SidebarLink key={link.id} {...link} />
                     })
                 }
@@ -32,11 +39,34 @@ export const Sidebar = () => {
                 <div className="mx-auto h-[1px] w-10/12 mt-4 mb-6 bg-richblack-700"></div>
 
                 <div className="flex flex-col gap-y-2">
-                    <SidebarLink name="Setting" path="/dashboard/setting" icon="VscSettingsGear" />
-                    <SidebarLink name="Logout" path="/logout" icon="VscSignOut" />
+
+                    <SidebarLink
+                        name="Setting"
+                        path="/dashboard/settings"
+                        icon="VscSettingsGear"
+                    />
+
+                    <button
+                        onClick={() => setConfirmationModal({
+                            text1: "Are ypu sure ?",
+                            text2: "You will be logged out of your account",
+                            btn1text: "Logout",
+                            btn2text: "Cancel",
+                            btn1handler: () => dispatch(logout(navigate)),
+                            btn2handler: () => setConfirmationModal(null)
+                        })}
+                        className="text-sm font-medium text-richblack-300"
+                    >
+                        <div className="flex items-center gap-2">
+                            <VscSignOut />
+                            <span>Logout</span>
+                        </div>
+
+                    </button>
+
                 </div>
 
-                {/* 1:01 */}
+                {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
 
             </div>
         </div>

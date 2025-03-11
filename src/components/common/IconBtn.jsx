@@ -10,9 +10,9 @@ export const IconBtn = ({
 }) => {
     return (
         <button
-        disabled={disabled}
-        onClick={onclick}
-        type={type}
+            disabled={disabled}
+            onClick={onclick}
+            type={type}
         // className={`
         //     ${outline ? "outline" : ""}
         //     ${customClasses}

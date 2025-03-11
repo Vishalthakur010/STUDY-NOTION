@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
+import { Sidebar } from "../components/core/Dashboard/Sidebar";
 
 export const Dashboard = () => {
 
@@ -16,7 +17,7 @@ export const Dashboard = () => {
     }
 
     return (
-        <div className="relative flex min-h-[calc(100vh-3.5rem)]">
+        <div className="relative flex min-h-[calc(100vh-3.5rem)] bg-richblack-600">
 
             <Sidebar/>
 
