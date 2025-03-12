@@ -13,10 +13,7 @@ export const IconBtn = ({
             disabled={disabled}
             onClick={onclick}
             type={type}
-        // className={`
-        //     ${outline ? "outline" : ""}
-        //     ${customClasses}
-        // `}
+            className="text-lg font-bold bg-yellow-50 text-richblack-900 px-6 py-2 rounded-md"
         >
             {
                 children ? (

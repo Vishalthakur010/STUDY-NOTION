@@ -25,10 +25,9 @@ export const Sidebar = () => {
     }
 
     return (
-        <div className="flex flex-col min-w-[250px] border-r-[1px] border-r-richblack-600 
+        <div className="flex flex-col min-w-[225px] border-r-[1px] border-r-richblack-900 
         h-[calc(100vh-3.5rem)] bg-richblack-800 py-10 text-white">
 
-            <div className="flex flex-col">
                 {
                     sidebarLinks.map((link) => {
                         if (link.type && user.accountType !== link.type) return null
@@ -36,7 +35,7 @@ export const Sidebar = () => {
                     })
                 }
 
-                <div className="mx-auto h-[1px] w-10/12 mt-4 mb-6 bg-richblack-700"></div>
+                <div className="mx-auto h-[1px] w-10/12 mt-4 mb-6 bg-richblack-500"></div>
 
                 <div className="flex flex-col gap-y-2">
 
@@ -48,14 +47,14 @@ export const Sidebar = () => {
 
                     <button
                         onClick={() => setConfirmationModal({
-                            text1: "Are ypu sure ?",
+                            text1: "Are you sure ?",
                             text2: "You will be logged out of your account",
                             btn1text: "Logout",
                             btn2text: "Cancel",
                             btn1handler: () => dispatch(logout(navigate)),
                             btn2handler: () => setConfirmationModal(null)
                         })}
-                        className="text-sm font-medium text-richblack-300"
+                        className="text-sm font-medium text-richblack-300 px-8"
                     >
                         <div className="flex items-center gap-2">
                             <VscSignOut />
@@ -67,8 +66,6 @@ export const Sidebar = () => {
                 </div>
 
                 {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
-
-            </div>
         </div>
     )
 }
