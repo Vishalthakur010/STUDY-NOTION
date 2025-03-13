@@ -9,6 +9,8 @@ exports.updateProfile = async (req, res) => {
     try {
         //fetch data
         const {
+            firstName ="",
+            lastName ="",
             dateOfBirth = "",
             about = "",
             gender="",
@@ -29,8 +31,16 @@ exports.updateProfile = async (req, res) => {
         const userDetails = await User.findById(id)
         const profileId = userDetails.additionalDetails
 
+        const user = await User.findByIdAndUpdate(id, 
+            {
+                firstName,
+                lastName,
+            },
+            { new: true }
+        )
+
         //upadte profile
-        const updatedProfile = await Profile.findByIdAndUpdate(profileId,
+        await Profile.findByIdAndUpdate(profileId,
             {
                 dateOfBirth,
                 gender,
@@ -40,11 +50,12 @@ exports.updateProfile = async (req, res) => {
             { new: true }
         )
 
+        const updatedUserDetails = await User.findById(id).populate("additionalDetails").exec()
         //return response
         return res.status(200).json({
             success: true,
             message: "Profile updated successfully",
-            updatedProfile
+            updatedUserDetails
         })
     }
     catch (error) {
