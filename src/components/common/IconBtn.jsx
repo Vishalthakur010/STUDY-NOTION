@@ -13,7 +13,7 @@ export const IconBtn = ({
             disabled={disabled}
             onClick={onclick}
             type={type}
-            className="text-lg font-bold bg-yellow-50 text-richblack-900 px-6 py-2 rounded-md"
+            className="flex items-center gap-2 text-lg font-bold bg-yellow-50 text-richblack-900 px-4 py-1 rounded-md"
         >
             {
                 children ? (
