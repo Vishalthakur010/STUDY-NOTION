@@ -18,3 +18,8 @@ export const categories = {
 export const contact = {
         CONTACT_API: BASE_URL + "/reach/contact"
 }
+
+//SETTINGS API
+export const settingsEndpoints = {
+        UPDATE_DISPLAY_PICTURE: BASE_URL + "/profile/updateDisplayPicture"
+}

@@ -28,7 +28,7 @@ exports.auth = async (req, res, next) => {
         } catch (error) {
             // verification issue
             return res.status(401).json({
-                success: flase,
+                success: false,
                 message: "invalid token"
             })
         }

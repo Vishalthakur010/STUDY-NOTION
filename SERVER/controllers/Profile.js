@@ -148,14 +148,14 @@ exports.getAllUserDetails = async (req, res) => {
 //update profile picture
 exports.updateDisplayPicture = async (req, res) => {
     try {
-        if (!req.files || !req.files.updateDisplayPicture) {
+        if (!req.files || !req.files.displayPicture) {
             return res.status(400).json({ 
                 success: false, 
                 message: "No image file uploaded" 
             });
         }
         //fetch data and file
-        const picture = req.files.updateDisplayPicture
+        const picture = req.files.displayPicture
         const userId = req.user.id
 
         //upload to cloudinary
@@ -178,7 +178,7 @@ exports.updateDisplayPicture = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "image updated successfully",
-            updatedUser
+            data:updatedUser
         })
     }
     catch (error) {

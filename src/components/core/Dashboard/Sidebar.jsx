@@ -24,6 +24,9 @@ export const Sidebar = () => {
         )
     }
 
+    // console.log("User in Sidebar:", user);
+
+
     return (
         <div className=" flex flex-col min-w-[225px] border-r-[1px] border-r-richblack-900 
          bg-richblack-800 py-10 text-white">
