@@ -67,7 +67,6 @@ const ChangeProfilePicture = () => {
                         ref={imageRef}
                         accept="image/*"
                         className="hidden"
-                        id="file"
                         onChange={handleFileChange}
                     />
                     <button

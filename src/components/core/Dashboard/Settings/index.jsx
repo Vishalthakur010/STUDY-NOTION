@@ -1,4 +1,5 @@
 import ChangeProfilePicture from "./ChangeProfilePicture";
+import EditProfile from "./EditProfile";
 
 export default function Settings() {
     return (
@@ -11,6 +12,9 @@ export default function Settings() {
 
                 {/* Change profile picture */}
                 <ChangeProfilePicture />
+
+                {/* Edit profile */}
+                <EditProfile />
             </div>
         </>
     )

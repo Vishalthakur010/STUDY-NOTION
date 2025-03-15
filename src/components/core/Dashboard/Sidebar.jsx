@@ -18,8 +18,8 @@ export const Sidebar = () => {
 
     if (authLoading || profileLoading) {
         return (
-            <div className='mt-10'>
-                <div>...Loading</div>
+            <div className='h-screen w-screen flex justify-center items-center'>
+                <div className='spinner'></div>
             </div>
         )
     }

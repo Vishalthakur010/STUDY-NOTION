@@ -7,15 +7,7 @@ import { RiFileEditLine } from "react-icons/ri";
 export const MyProfile = () => {
     const Navigate = useNavigate()
 
-    const { user, loading: profileLoading } = useSelector((state) => state.profile)
-
-    if (profileLoading) {
-        return (
-            <div className='mt-10'>
-                <div>...Loading</div>
-            </div>
-        )
-    }
+    const { user} = useSelector((state) => state.profile)
 
     return (
         <div className="flex flex-col gap-6 w-[70%] text-richblack-25 mx-auto mt-6">
