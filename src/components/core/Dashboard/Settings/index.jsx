@@ -1,5 +1,7 @@
 import ChangeProfilePicture from "./ChangeProfilePicture";
 import EditProfile from "./EditProfile";
+import { UpdatePassword } from "./UpdatePassword";
+import DeleteAccount from "./DeleteAccount"
 
 export default function Settings() {
     return (
@@ -15,6 +17,12 @@ export default function Settings() {
 
                 {/* Edit profile */}
                 <EditProfile />
+
+                {/* Update password */}
+                <UpdatePassword/>
+
+                {/* Delete account */}
+                <DeleteAccount />
             </div>
         </>
     )

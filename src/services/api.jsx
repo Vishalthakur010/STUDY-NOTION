@@ -21,5 +21,8 @@ export const contact = {
 
 //SETTINGS API
 export const settingsEndpoints = {
-        UPDATE_DISPLAY_PICTURE: BASE_URL + "/profile/updateDisplayPicture"
+        UPDATE_DISPLAY_PICTURE: BASE_URL + "/profile/updateDisplayPicture",
+        UPDATE_PROFILE: BASE_URL + "/profile/updateProfile",
+        CHANGE_PASSWORD: BASE_URL +"/auth/changePassword",
+        DELETE_ACCOUNT: BASE_URL + "/profile/deleteAccount"
 }

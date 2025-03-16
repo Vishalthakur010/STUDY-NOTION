@@ -6,6 +6,14 @@ import { setLoading, setToken } from "../../slices/authSlice";
 import { setUser } from "../../slices/profileSlice";
 import { resetCart } from "../../slices/cartSlice";
 
+const {
+        SENDOTP_API,
+        SIGNUP_API,
+        LOGIN_API,
+        RESETPASSTOKEN_API,
+        RESETPASSWORD_API
+} = endpoints
+
 
 export const sendOTP = (email, navigate) => async (dispatch) => {
         const toastId = toast.loading("Loading...")
@@ -33,14 +41,6 @@ export const sendOTP = (email, navigate) => async (dispatch) => {
         dispatch(setLoading(false))
         toast.dismiss(toastId)
 }
-
-const {
-        SENDOTP_API,
-        SIGNUP_API,
-        LOGIN_API,
-        RESETPASSTOKEN_API,
-        RESETPASSWORD_API
-} = endpoints
 
 export const signUp = (firstName,lastName,email,password,confirmPassword,accountType,otp,navigate) => async (dispatch) => {
         const toastId = toast.loading("Loading...")

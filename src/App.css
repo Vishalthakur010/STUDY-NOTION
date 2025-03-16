@@ -63,3 +63,10 @@
   animation: spinner-bulqg1 0.8s infinite linear alternate,
     spinner-oaa3wk 1.6s infinite linear;
 }
+
+.label-style{
+  @apply text-[14px] text-richblack-5
+}
+.form-style{
+  @apply text-richblack-5 placeholder:text-richblack-400 text-[16px] leading-[24px] focus:outline-none bg-richblack-700 p-3 rounded-lg shadow-sm shadow-richblack-100
+}

@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const Profile = require('../models/Profile')
 const jwt = require('jsonwebtoken')
 const { mailSender } = require('../utils/mailSender')
+const {passwordUpdated} = require('../mail/templates/passwordUpdate')
 require('dotenv').config()
 
 //sendOTP
@@ -289,7 +290,7 @@ exports.changePassword = async (req, res) => {
         try {
             const mailResponse = mailSender(
                 updatedUserDetails.email,
-                "Password for your account has been updated", "Your password has changed",
+                "Password for your account has been updated",
                 passwordUpdated(
                     updatedUserDetails.email,
                     `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
