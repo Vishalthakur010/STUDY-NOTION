@@ -109,7 +109,6 @@ exports.createCourse = async (req, res) => {
     }
 }
 
-
 //getALlCourse handler function
 exports.showAllCourses= async (req,res) => {
     try{

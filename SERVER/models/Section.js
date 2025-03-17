@@ -4,7 +4,7 @@ const Section = new mongoose.Schema({
     sectionName:{
         type:String
     },
-    subsection:[
+    subSection:[   // changed subsection to subSection
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:"SubSection"

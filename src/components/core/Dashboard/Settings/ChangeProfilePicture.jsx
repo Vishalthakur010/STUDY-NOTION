@@ -38,7 +38,7 @@ const ChangeProfilePicture = () => {
             })
         }
         catch(error){
-            console.log("error message : ", error.message)
+            console.log("error changing profile picture : ", error.message)
         }
     }
 

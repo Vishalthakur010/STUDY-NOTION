@@ -26,3 +26,8 @@ export const settingsEndpoints = {
         CHANGE_PASSWORD: BASE_URL +"/auth/changePassword",
         DELETE_ACCOUNT: BASE_URL + "/profile/deleteAccount"
 }
+
+//PROFILE ENDPOINTS
+export const PROFILE_ENDPOINT={
+        GET_USER_ENROLLED_COURSES_API : BASE_URL + "/profile/getEnrolledCourses"
+}
