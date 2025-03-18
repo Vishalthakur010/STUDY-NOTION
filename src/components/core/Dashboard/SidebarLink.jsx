@@ -15,8 +15,8 @@ export const SidebarLink = ({ name, path, icon }) => {
     return (
         <NavLink
             to={path}
-            // hw: onclick
-            className={`relative py-2 px-8 text-sm font-semibold text-richblack-300 
+            // onClick={()=> dispatch()}
+            className={`relative py-2 px-8 text-sm font-semibold text-richblack-300 cursor-pointer
                 ${matchRoutes(path) ? "text-yellow-50 bg-yellow-800" : "bg-opacity-0"}`}
         >
             {/* for left side border */}
