@@ -9,7 +9,7 @@ import { RxCountdownTimer } from "react-icons/rx";
 const VerifyEmail = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [otp, setOtp] = useState("")
+    var [otp, setOtp] = useState("")
     const { loading, signupData } = useSelector((state) => state.auth)
 
     useEffect(() => {
@@ -19,6 +19,8 @@ const VerifyEmail = () => {
         }
     }, [])
 
+    if(!signupData) return null
+    
     const {
         firstName,
         lastName,
@@ -57,15 +59,21 @@ const VerifyEmail = () => {
                                 otpType="number"
                                 // disabled={false}
                                 separator={<span className='text-white'>-</span>}
-                                renderInput={(props) => <input {...props} 
-                                placeholder='-'
-                                style={{ color: 'white', width: '100%'}}
-                                className=' bg-richblack-800 p-7 mr-4 h-6 
-                                text-white rounded-lg shadow-sm shadow-richblack-100 focus:border-0 focus:outline-2 focus:outline-yellow-50'/>}
+                                renderInput={(props) => (
+                                    <input
+                                      {...props}
+                                      placeholder="-"
+                                      style={{
+                                        boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
+                                      }}
+                                      className="w-[45px] lg:w-[55px] border-0 bg-richblack-800 rounded-[0.5rem] 
+                                      text-richblack-5 mr-4 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50"
+                                    />
+                                  )} 
                             />
 
                             <button type='submit'
-                                className='text-center text-[16px] px-6 py-3 rounded-lg font-bold shadow-white shadow-sm bg-yellow-50 text-blac w-full'>
+                                className='text-center text-[16px] px-6 py-3 rounded-lg font-bold shadow-white shadow-sm bg-yellow-50 text-black'>
                                 Verify email
                             </button>
                         </form>
@@ -79,7 +87,10 @@ const VerifyEmail = () => {
                             </div>
 
                                 <button
-                                onClick={() => dispatch(sendOTP(signupData.email, navigate))}
+                                onClick={() => { 
+                                    setOtp("") // reset the otp field
+                                    dispatch(sendOTP(signupData.email, navigate))
+                                }}
                                 className='flex items-center text-blue-100 gap-2'>
                                     <RxCountdownTimer/>
                                     <p>Resend it</p>

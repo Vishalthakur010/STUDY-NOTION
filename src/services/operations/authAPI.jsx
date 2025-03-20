@@ -24,8 +24,8 @@ export const sendOTP = (email, navigate) => async (dispatch) => {
                         email,
                         checkuserPresent: true
                 })
-                console.log("SENDOTP API response ... ", response)
-                console.log(response.data.success)
+                // console.log("SENDOTP API response ... ", response)
+                // console.log(response.data.success)
 
                 if (!response.data.success) {
                         throw new Error(response.data.message)

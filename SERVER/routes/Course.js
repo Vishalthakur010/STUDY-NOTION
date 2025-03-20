@@ -45,6 +45,10 @@ const {
     getAllRating
 } = require('../controllers/RatingAndReview')
 
+const {
+    updateCourseProgress
+} = require('../controllers/courseProgress')
+
 
 
 //courses can only be created by instructor
@@ -66,6 +70,9 @@ router.post("/deleteSubsection",auth, isInstructor, deleteSubsection) //checked
 router.post("/createCategory",auth,isAdmin,createCategory) //checked
 router.get("/showAllCategory",showAllCategory) //checked
 router.post("/categoryPageDetails",categoryPageDetails) 
+
+//course Progress can be seen by students
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress)
 
 //Rating and review can only be created by students
 router.post("/createRating",auth,isStudent,createRating)
