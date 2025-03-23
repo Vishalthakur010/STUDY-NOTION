@@ -13,8 +13,8 @@ const {
 const {
     createCourse,
     showAllCourses,
-    getCourseDetail
-
+    getCourseDetail,
+    editCourse                      //update
 } = require('../controllers/Course')
 
 //import Category controller
@@ -72,7 +72,7 @@ router.get("/showAllCategory",showAllCategory) //checked
 router.post("/categoryPageDetails",categoryPageDetails) 
 
 //course Progress can be seen by students
-router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress)
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress) //update
 
 //Rating and review can only be created by students
 router.post("/createRating",auth,isStudent,createRating)
