@@ -14,7 +14,10 @@ const {
     createCourse,
     showAllCourses,
     getCourseDetail,
-    editCourse                      
+    editCourse,
+    getFullCourseDetails,
+    getInstructorCourses,
+    deleteCourse        
 } = require('../controllers/Course')
 
 //import Category controller
@@ -53,9 +56,12 @@ const {
 
 //courses can only be created by instructor
 router.post("/createCourse",auth, isInstructor, createCourse) //checked
-router.get("/showAllCourses",showAllCourses) //checked
+router.get("/showAllCourses",showAllCourses) //checked done
 router.post("/getCourseDetail",getCourseDetail) //checked
-router.post("/editCourse", editCourse)  //updated
+router.post("/editCourse",auth, isInstructor, editCourse)  //updated
+router.post("/getFullCourseDetails",auth, getFullCourseDetails)  //updated
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses) //updated
+router.delete("/deleteCourse", deleteCourse) //updated
 
 //section can only be created by instructor
 router.post("/createSection",auth, isInstructor, createSection)  //checked
