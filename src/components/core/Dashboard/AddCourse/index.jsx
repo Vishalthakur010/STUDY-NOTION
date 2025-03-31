@@ -15,7 +15,7 @@ export const AddCourse = () => {
                     </div>
                 </div>
 
-                <div className=" sticky top-10 hidden max-w-[380px] flex-1 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6 xl:block">
+                <div className=" sticky top-10 hidden h-fit max-w-[380px] flex-1 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6 xl:block">
                     <p className="text-richblack-5 text-lg font-semibold mb-6 flex items-center gap-1">
                         <BsFillLightningChargeFill className="text-yellow-50 text-sm"/>
                         Course Upload Tips
