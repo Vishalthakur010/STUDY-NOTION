@@ -50,7 +50,7 @@ const ContactUs = () => {
                     </div>
 
                     {/* right */}
-                    <div className="w-[60%] p-10">
+                    <div className="lg:w-[60%] p-10">
 
                         <h2 className="text-4xl text-richblack-25 font-semibold">
                             Got an Idea? We've got the Skills. Lets team up
