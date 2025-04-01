@@ -75,14 +75,14 @@ export default function ChipInput({
                     onKeyDown={handleKeyDown}
                     className="w-full form-style"
                 />
-            </div>
 
-            {/* Error message */}
-            {errors[name] && (
-                <span className="ml-2 text-xs tracking-wide text-pink-200">
-                    {label} is required
-                </span>
-            )}
+                {/* Error message */}
+                {errors[name] && (
+                    <span className="ml-2 text-xs tracking-wide text-pink-200">
+                        {label} is required
+                    </span>
+                )}
+            </div>
 
         </div>
     )

@@ -5,6 +5,7 @@ import { fetchCourseCategories } from "../../../../../services/operations/course
 import { HiOutlineCurrencyRupee } from "react-icons/hi"
 import ChipInput from "./ChipInput"
 import { Upload } from "../Upload"
+import { RequirementField } from "./RequirementField"
 
 
 export const CourseInformationForm = () => {
@@ -156,14 +157,58 @@ export const CourseInformationForm = () => {
 
             {/* course thumbnail image*/}
             <Upload
-                label="Thumbnail Image"
+                label="Course Thumbnail"
                 name="courseImage"
                 register={register}
                 setValue={setValue}
                 errors={errors}
                 editData={editCourse ? course?.thumbnail : null}
             />
-            
+
+            {/* Benefits of course */}
+            <div className="flex flex-col gap-2">
+                <label htmlFor="courseBenefits" className="label-style">
+                    Benefits of the course <sup className="text-pink-200">*</sup>
+                </label>
+                <textarea 
+                name="courseBenefits" 
+                id="courseBenefits"
+                rows={4}
+                placeholder="Enter Benefits of the course"
+                {...register("courseBenefits", {required:true})}
+                className="form-style"
+                >
+
+                </textarea>
+                {
+                    errors.courseBenefits &&
+                        <p className="text-red-400 text-sm">{errors.courseBenefits.message}</p>
+                }
+            </div>
+
+            {/* Requirements/Instructions */}
+            <RequirementField
+            label="Requirements/Instructions"
+            name="courseRequirements"
+            placeholder="Enter Requirements/Instructions"
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+            errors={errors}
+            />
+
+            {/* buttons */}
+            <div>
+                {
+                    editCourse && (
+                        <button
+                        onClick={()=> dispatch(setStep(2))}
+                        >
+                            Continue without Saving
+                        </button>
+                    )
+                }
+            </div>
         </form>
     )
 }
