@@ -144,7 +144,7 @@ export const CourseInformationForm = () => {
         formData.append("tags", JSON.stringify(data.courseTags))
         formData.append("whatYouWillLearn", data.courseBenefits)
         formData.append("category", data.courseCategory)
-        // formData.append("instructions", JSON.stringify(data.courseRequirements))
+        formData.append("instructions", JSON.stringify(data.courseRequirements))
         formData.append("status", COURSE_STATUS.DRAFT)
 
         // Handle file upload
