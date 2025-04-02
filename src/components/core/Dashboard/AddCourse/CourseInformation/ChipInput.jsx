@@ -79,7 +79,7 @@ export default function ChipInput({
                 {/* Error message */}
                 {errors[name] && (
                     <span className="ml-2 text-xs tracking-wide text-pink-200">
-                        {label} is required
+                        {label} are required
                     </span>
                 )}
             </div>
