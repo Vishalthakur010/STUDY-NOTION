@@ -18,7 +18,7 @@ export default function ChipInput({
 
     useEffect(() => {
         if (editCourse) {
-            setChips(course?.tag);
+            setChips(course?.tags);
         }
         register(name, { validate: (value) => value.length > 0 })
     }, [editCourse, register]);
@@ -41,7 +41,7 @@ export default function ChipInput({
 
     //   Users should be able to delete a tag by clicking a button.
     const handleDeleteChip = (chipindex) => {
-        setChips(chips.filter((_, index) => index !== chipindex));
+        setChips(chips?.filter((_, index) => index !== chipindex));
     }
 
     return (
@@ -54,7 +54,7 @@ export default function ChipInput({
             {/* chips & Input */}
             <div className="flex flex-wrap gap-2 w-full gap-y-2">
                 {/* Display existing chips */}
-                {chips.map((chip, index) => (
+                {(chips || []).map((chip, index) => (
                     <div key={index} className="m-1 flex  items-center rounded-full bg-yellow-400 px-2 py-1 text-sm text-richblack-5">
                         {chip}
                         <button type="button"

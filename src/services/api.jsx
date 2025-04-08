@@ -20,7 +20,7 @@ export const courseEndpoints = {
         CREATE_COURSE_API: BASE_URL + "/course/createCourse",
         GET_ALL_COURSE_API: BASE_URL + "/course/showAllCourses",
         COURSE_DETAILS_API: BASE_URL + "/course/getCourseDetail",
-        EDIT_COURSE_API: BASE_URL + "/course/getCourseDetail",
+        EDIT_COURSE_API: BASE_URL + "/course/editCourse",
         GET_FULL_COURSE_DETAILS_AUTHENTICSTED:
                 BASE_URL + "/course/getFullCourseDetails",
         GET_ALL_INSTRUCTOR_COURSES_API: BASE_URL + "/course/getInstructorCourses",

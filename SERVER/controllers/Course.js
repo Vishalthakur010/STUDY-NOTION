@@ -29,7 +29,7 @@ exports.createCourse = async (req, res) => {
         const tags = JSON.parse(_tags)
         const instructions = JSON.parse(_instructions)
 
-        console.log("tags", tag)
+        console.log("tags", tags)
         console.log("instructions", instructions)
 
         //validation
@@ -243,7 +243,7 @@ exports.editCourse = async (req, res) => {
                 thumbnail,
                 process.env.FOLDER_NAME
             )
-            Course.thumbnail = thumbnailImage.secure_url
+            course.thumbnail = thumbnailImage.secure_url
         }
 
         //update only the fields that are present in request body
@@ -276,7 +276,9 @@ exports.editCourse = async (req, res) => {
             })
             .exec()
 
-        res.json({
+            console.log("updated course : ", updatedCourse)
+
+        return res.json({
             success: true,
             message: "Course updated successfully",
             data: updatedCourse

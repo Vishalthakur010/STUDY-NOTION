@@ -3,6 +3,7 @@ import { Form, useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
 import { addCourseDetails, editCourseDetails, fetchCourseCategories } from "../../../../../services/operations/courseDetailsAPI"
 import { HiOutlineCurrencyRupee } from "react-icons/hi"
+import { MdNavigateNext } from "react-icons/md";
 import ChipInput from "./ChipInput"
 import { Upload } from "../Upload"
 import { RequirementField } from "./RequirementField"
@@ -23,7 +24,7 @@ export const CourseInformationForm = () => {
     } = useForm()
 
     const dispatch = useDispatch()
-    const {token}= useSelector((state) => state.auth)
+    const { token } = useSelector((state) => state.auth)
     const { course, editCourse } = useSelector((state) => state.course)
     const [loading, setLoading] = useState(false)
     const [courseCategories, setCourseCategories] = useState([])
@@ -46,7 +47,7 @@ export const CourseInformationForm = () => {
     useEffect(() => {
         if (editCourse) {
             setValue("courseTitle", course.courseName)
-            setValue("courseShortDesc", course.courseDescription)
+            setValue("courseShortDesc", course.coursedescription)
             setValue("coursePrice", course.price)
             setValue("courseTags", course.tags)
             setValue("courseBenefits", course.whatYouWillLearn)
@@ -61,7 +62,7 @@ export const CourseInformationForm = () => {
     const isFormUpdated = () => {
         const currentValue = getValues()
         if (currentValue.courseTitle !== course.courseName ||
-            currentValue.courseShortDesc !== course.courseDescription ||
+            currentValue.courseShortDesc !== course.coursedescription ||
             currentValue.coursePrice !== course.price ||
             currentValue.courseTags.toString() !== course.tags.toString() ||
             currentValue.courseBenefits !== course.whatYouWillLearn ||
@@ -88,47 +89,37 @@ export const CourseInformationForm = () => {
                 if (currentValue.courseTitle != course.courseName) {
                     formData.append("courseName", data.courseTitle)
                 }
-
-                if (currentValue.courseShortDesc != course.courseDescription) {
-                    formData.append("courseDescription", data.courseShortDesc)
+                if (currentValue.courseShortDesc != course.coursedescription) {
+                    formData.append("coursedescription", data.courseShortDesc)
                 }
-
                 if (currentValue.coursePrice != course.price) {
                     formData.append("price", data.coursePrice)
                 }
-
                 if (currentValue.courseTags.toString() != course.tags.toString()) {
                     formData.append("tags", JSON.stringify(data.courseTags))
                 }
-
                 if (currentValue.courseBenefits != course.whatYouWillLearn) {
                     formData.append("whatYouWillLearn", data.courseBenefits)
                 }
-
                 if (currentValue.courseCategory._id != course.category._id) {
                     formData.append("category", data.courseCategory)
                 }
-
                 if (currentValue.courseRequirements.toString() != course.instructions.toString()) {
                     formData.append("instructions", JSON.stringify(data.courseRequirements))
                 }
-
-                if (currentValue.courseImage != course.thumbnail) {
-                    formData.append("thumbnail", data.courseImage)
+                if (currentValue.courseImage != course.thumbnailImage) {
+                    formData.append("thumbnailImage", data.courseImage)
                 }
 
-                try {
-                    setLoading(true)
-                    const result = await editCourseDetails(formData, token)
-                    if (result) {
-                        dispatch(setStep(2))
-                        dispatch(setCourse(result))
-                        toast.success("Course details updated successfully")
-                    }
-                    setLoading(false)
-                } catch (error) {
-                    console.error("Error updating course :", error)
+                setLoading(true)
+                const result = await editCourseDetails(formData, token)
+                        console.log("edit courseDetails Result:", result)
+                if (result) {
+                    dispatch(setStep(2))
+                    dispatch(setCourse(result))
+                    // toast.success("Course details updated successfully")
                 }
+                setLoading(false)
             }
             else {
                 toast.error("No changes made to the course details")
@@ -152,22 +143,17 @@ export const CourseInformationForm = () => {
             formData.append("thumbnailImage", data.courseImage);
         }
 
-        console.log("Form Data Contents:", Array.from(formData.entries()));
+        // console.log("Form Data Contents:", Array.from(formData.entries()));
 
-        try {
-            setLoading(true)
-            const result = await addCourseDetails(formData, token)
-            console.log("Result:", result)
-            if (result) {
-                dispatch(setStep(2))
-                dispatch(setCourse(result))
-                toast.success("Course details added successfully")
-            }
-            setLoading(false)
-        } catch (error) {
-            console.error("Error adding course details :", error)
+        setLoading(true)
+        const result = await addCourseDetails(formData, token)
+        // console.log("Result:", result)
+        if (result) {
+            dispatch(setStep(2))
+            dispatch(setCourse(result))
+            // toast.success("Course details added successfully")
         }
-        console.log("course", course)
+        setLoading(false)
     }
 
     return (
@@ -274,7 +260,7 @@ export const CourseInformationForm = () => {
             <ChipInput
                 label="Tags"
                 name="courseTags"
-                placeholder="Enter Tags and press Enter"
+                placeholder="Enter Tags and press ',' or Enter"
                 register={register}
                 setValue={setValue}
                 getValues={getValues}
@@ -326,12 +312,12 @@ export const CourseInformationForm = () => {
             />
 
             {/* buttons */}
-            <div className="grid place-items-end">
+            <div className="flex gap-2  justify-end">
                 {
                     editCourse && (
                         <button
                             onClick={() => dispatch(setStep(2))}
-                            className="flex items-center gap-2 bg-richblack-500"
+                            className="flex items-center gap-2 p-2 rounded-md text-richblack-900 font-semibold bg-richblack-400"
                         >
                             Continue without Saving
                         </button>
@@ -340,7 +326,9 @@ export const CourseInformationForm = () => {
                 <IconBtn
                     text={editCourse ? "Save Changes" : "Next"}
                     type="submit"
-                />
+                >
+                    <MdNavigateNext />
+                </IconBtn>
             </div>
         </form>
     )
