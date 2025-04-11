@@ -237,7 +237,7 @@ export const deleteSection = async (data, token) => {
     let result =null
 
     try{
-        const response = await apiconnector("POST", DELETE_SUBSECTION_API, data, {
+        const response = await apiconnector("POST", DELETE_SECTION_API, data, {
             Authorization: `Bearer ${token}`
         })
         console.log("DELETE_SUBSECTION_API response : ", response)
@@ -257,15 +257,15 @@ export const deleteSection = async (data, token) => {
 }
 
 //delete subSection
-export const deleteSubsection = async (token)=>{
+export const deleteSubsection = async (data,token)=>{
     const toastId = toast.loading("Loading...")
     let result =null
 
     try{
-        const response = await apiconnector("POST", DELETE_SECTION_API, data, {
+        const response = await apiconnector("POST", DELETE_SUBSECTION_API, data, {
             Authorization: `Bearer ${token}`
         })
-        console.log("DELETE_SECTION_API response : ", response)
+        console.log("DELETE_SUBSECTION_API response : ", response)
 
         if (!response?.data?.success) {
             throw new Error("Could not delete subSection")

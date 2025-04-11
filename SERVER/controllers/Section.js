@@ -81,7 +81,7 @@ exports.updateSection = async (req, res) => {
         .populate({
             path: "courseContent",
             populate: {
-                path: "subsection",
+                path: "subSection",
             },
         })
         .exec()

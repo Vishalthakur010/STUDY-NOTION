@@ -16,8 +16,6 @@ export const RequirementField = ({
     const [requirementList, setRequirementList] = useState([])
 
     useEffect(()=> {
-        console.log("course:", course); 
-        console.log("course?.instructions:", course?.instructions);
         if(editCourse){
             setRequirementList(course?.instructions || [])
         }

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { FiUploadCloud } from "react-icons/fi"
-import { Player } from "video-react"
+// import { Player } from "video-react"
+import ReactPlayer from "react-player"
 
 
 export const Upload = ({
@@ -59,44 +60,57 @@ export const Upload = ({
                 {label} {!viewData && <sup className="text-pink-200">*</sup>}
             </label>
             <div
-            // {...getRootProps()}
+                {...getRootProps()}
                 className={`${isDragActive ? "bg-richblack-600" : "bg-richblack-700"}
-            flex min-h-[250px] cursor-pointer items-center justify-center rounded-md border-2 border-dotted border-richblack-500`}
+            flex min-h-[200px] w-full cursor-pointer items-center justify-center rounded-md border-2 border-dotted border-richblack-500`}
             >
-                {previewSource ? (
-                    <div className="flex w-full flex-col p-6">
-                        {!video ? (
-                            <img
-                                src={previewSource}
-                                alt="preview"
-                                className="h-full w-full rounded-md object-cover"
-                            />
-                        )
-                            : (
-                                <Player aspectRatio="16:9" playsInline src={previewSource} />
+                <input {...getInputProps()} ref={inputRef} />
+                {previewSource ?
+                    (
+                        <div className="flex w-full flex-col p-6">
+                            {!video ? (
+                                <img
+                                    src={previewSource}
+                                    alt="preview"
+                                    className="h-full w-full rounded-md object-cover"
+                                />
                             )
-                        }
-                        {!viewData && (
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setPreviewSource("")
-                                    setSelectedFile(null)
-                                    setValue(name, null)
-                                }}
-                                className="mt-3 text-richblack-400 underline"
-                            >
-                                Cancel
-                            </button>
-                        )}
-                    </div>
-                )
+                                : (
+                                <ReactPlayer
+                                    url={previewSource}
+                                    controls
+                                    // width="100%"
+                                    // height="100%"
+                                />
+
+                                )
+                            }
+                            {!viewData && (
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setPreviewSource("")
+                                        setSelectedFile(null)
+                                        setValue(name, null)
+                                    }}
+                                    className="mt-3 text-richblack-400 underline"
+                                >
+                                    Cancel
+                                </button>
+                            )}
+                        </div>
+                    )
                     : (
                         <div
                             className="w-full flex flex-col items-center p-6"
-                            {...getRootProps()}
+                            // {...getRootProps()}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                inputRef.current?.click(); // Manually trigger file input
+                            }}
                         >
-                            <input {...getInputProps()} ref={inputRef} />
+                            {/* <input {...getInputProps()} ref={inputRef} /> */}
                             <div className="grid aspect-square w-14 place-items-center rounded-full bg-pure-greys-800">
                                 <FiUploadCloud className="text-2xl text-yellow-50" />
                             </div>

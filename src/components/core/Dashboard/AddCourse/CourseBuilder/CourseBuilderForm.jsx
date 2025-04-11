@@ -81,6 +81,8 @@ export const CourseBuilderForm = () => {
             setValue("sectionName", "")
             dispatch(setCourse(result))
         }
+
+        setLoading(false)
     }
 
     const handleChangeEditSectionName =(sectionId, sectionName)=>{
@@ -106,8 +108,9 @@ export const CourseBuilderForm = () => {
                     </label>
                     <input
                         type="text"
+                        name="sectionName"
                         id="sectionName"
-                        placeholder="Add a section to build you "
+                        placeholder="Add a section to build your course "
                         {...register("sectionName", { required: true })}
                         className="form-style"
                     />

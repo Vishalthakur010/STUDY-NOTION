@@ -14,10 +14,10 @@ export const MyCourse = () => {
                     text="New"
                     customClasses="p-6"
                 >
-                    <IoIosAddCircleOutline/>
+                    <IoIosAddCircleOutline/>   
                 </IconBtn>
             </div>
-
+                            {/* 1:09 min */}
         </div>
     )
 }

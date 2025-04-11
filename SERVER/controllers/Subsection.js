@@ -12,7 +12,7 @@ exports.createSubsection = async (req, res) => {
         const video = req.files.videoFile
 
         //validate
-        if (!sectionId || !title || !description || !videoFile) {
+        if (!sectionId || !title || !description || !video) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
@@ -35,11 +35,11 @@ exports.createSubsection = async (req, res) => {
             sectionId,
             {
                 $push: {
-                    subsection: subsectionDetails._id
+                    subSection: subsectionDetails._id
                 }
             },
             { new: true })
-            .populate("subsection")
+            .populate("subSection")
 
         //return response 
         return res.status(200).json({
@@ -95,7 +95,7 @@ exports.updateSubsection = async (req, res) => {
 
         // find updated section and return it
         const updatedSection = await Section.findById(sectionId).populate(
-            "subsection"
+            "subSection"
         )
 
         console.log("updated section", updatedSection)
@@ -153,7 +153,7 @@ exports.deleteSubsection = async (req, res) => {
 
     // find updated section and return it
     const updatedSection = await Section.findById(sectionId).populate(
-      "subsection"
+      "subSection"
     )
 
         //return response

@@ -2,7 +2,7 @@ import { IconBtn } from "./IconBtn"
 
 export const ConfirmationModal = ({modalData}) => {
     return (
-        <div className="fixed top-0 left-0 w-full h-full backdrop-blur bg-richblack-800 bg-opacity-55 flex items-center justify-center">
+        <div className="fixed top-0 left-0 w-full h-full backdrop-blur bg-richblack-800 bg-opacity-55 flex items-center justify-center z-10">
 
         
         <div className="bg-richblack-800 rounded-lg border-[2px] border-richblack-600  flex flex-col gap-4 p-8 ">
