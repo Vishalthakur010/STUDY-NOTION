@@ -61,7 +61,7 @@ router.post("/getCourseDetail",getCourseDetail) //checked
 router.post("/editCourse",auth, isInstructor, editCourse)  //updated
 router.post("/getFullCourseDetails",auth, getFullCourseDetails)  //updated
 router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses) //updated
-router.delete("/deleteCourse", deleteCourse) //updated
+router.delete("/deleteCourse",auth, isInstructor,  deleteCourse) //updated
 
 //section can only be created by instructor
 router.post("/createSection",auth, isInstructor, createSection)  //checked

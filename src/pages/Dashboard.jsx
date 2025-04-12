@@ -17,11 +17,11 @@ export const Dashboard = () => {
     }
 
     return (
-        <div className="relative flex min-h-[calc(100vh-3.5rem)] bg-richblack-600">
+        <div className="relative flex h-[calc(100vh-3.5rem)] bg-richblack-600 overflow-hidden">
 
             <Sidebar/>
 
-            <div className="w-full bg-richblack-900">
+            <div className="w-full bg-richblack-900 overflow-y-auto">
                 <Outlet/>
             </div>
 

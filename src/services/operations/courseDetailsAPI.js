@@ -310,7 +310,7 @@ export const deleteCourse = async (data, token) => {
     let result =null
 
     try{
-        const response = await apiconnector("POST", DELETE_COURSE_API, data, {
+        const response = await apiconnector("DELETE", DELETE_COURSE_API, data, {
             Authorization: `Bearer ${token}`
         })
         console.log("DELETE_COURSE_API response : ", response)
