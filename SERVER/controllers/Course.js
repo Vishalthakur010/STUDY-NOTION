@@ -45,7 +45,9 @@ exports.createCourse = async (req, res) => {
         }
         //check for instructor and get the ID
         const userId = req.user.id
-        const instructorDetail = await User.findById(userId)
+        const instructorDetail = await User.findById(userId, {
+            accountType: "Instructor",
+          })
         console.log("instructor Detail : ", instructorDetail)
 
         if (!instructorDetail) {
@@ -95,8 +97,8 @@ exports.createCourse = async (req, res) => {
         )
 
         //update the Category schema
-        await Category.findByIdAndUpdate(
-            { _id: categoryDetails.id },
+        const updatedCategory = await Category.findByIdAndUpdate(
+            { _id: category },
             {
                 $push: {
                     course: newCourse._id
@@ -104,6 +106,7 @@ exports.createCourse = async (req, res) => {
             },
             { new: true }
         )
+        console.log("updatedCategory : ", updatedCategory )
 
         //return response
         return res.status(200).json({
@@ -278,7 +281,7 @@ exports.editCourse = async (req, res) => {
 
             console.log("updated course : ", updatedCourse)
 
-        return res.json({
+         res.json({
             success: true,
             message: "Course updated successfully",
             data: updatedCourse
