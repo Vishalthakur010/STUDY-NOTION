@@ -46,6 +46,10 @@ export const categories = {
         CATEGORIES_API: BASE_URL + "/course/showAllCategory" //checked
 }
 
+export const catalogData ={
+        CATALOGPAGEDATA_API: BASE_URL + "/course/categoryPageDetails"
+}
+
 //CONTACT API
 export const contact = {
         CONTACT_API: BASE_URL + "/reach/contact" //checked

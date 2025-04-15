@@ -66,7 +66,7 @@ export const CourseInformationForm = () => {
             currentValue.coursePrice !== course.price ||
             currentValue.courseTags.toString() !== course.tags.toString() ||
             currentValue.courseBenefits !== course.whatYouWillLearn ||
-            currentValue.courseCategory._id !== course.category.id ||
+            currentValue.courseCategory._id !== course.category._id ||
             currentValue.courseRequirements.toString() !== course.instructions.toString() ||
             currentValue.courseImage !== course.thumbnail
         )

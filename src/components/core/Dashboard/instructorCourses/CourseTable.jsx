@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 import { ConfirmationModal } from "../../../common/ConfirmationModal"
 import { deleteCourse, fetchInstructorCourses } from "../../../../services/operations/courseDetailsAPI"
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
+import { formDate } from "../../../../services/operations/formDate"
 
 export default function CourseTable({ courses, setCourses }) {
 
@@ -80,7 +81,7 @@ export default function CourseTable({ courses, setCourses }) {
                                                     {course.coursedescription}
                                                 </p>
                                                 <p className="text-richblack-5 text-sm">
-                                                    Created:
+                                                    Created: {formDate(course.createdAt)}
                                                 </p>
                                                 {
                                                     course.status === COURSE_STATUS.DRAFT ?

@@ -57,6 +57,7 @@ export const PublishCourse = () => {
     }
     const onsubmit = async (data) => {
         handleCoursePublish()
+        navigate("/dashboard/my-courses")
     }
 
     return (
