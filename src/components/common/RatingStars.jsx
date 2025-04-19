@@ -16,7 +16,7 @@ export const RatingStars = ({Review_Count, Star_Size}) => {
     })
 
     useEffect(()=>{
-        const wholeStars = Math.floor(Review_Count)
+        const wholeStars = Math.floor(Review_Count) || 0
         setStarCount({
             full:wholeStars,
             half: Number.isInteger(Review_Count) ? 0 : 1,
@@ -33,12 +33,12 @@ export const RatingStars = ({Review_Count, Star_Size}) => {
             }
             {
                 [...new Array(starCount.half)].map((_, index)=>(
-                    <TiStarFullOutline key={index} size={Star_Size || 20} />
+                    <TiStarHalfOutline key={index} size={Star_Size || 20} />
                 ))
             }
             {
                 [...new Array(starCount.empty)].map((_, index)=>(
-                    <TiStarFullOutline key={index} size={Star_Size || 20} />
+                    <TiStarOutline key={index} size={Star_Size || 20} />
                 ))
             }
         </div>

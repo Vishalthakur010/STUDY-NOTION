@@ -106,7 +106,7 @@ export default function CourseTable({ courses, setCourses }) {
                                         <Td className="text-xl">
                                             <button
                                                 disabled={loading}
-                                                className="mr-2"
+                                                className="mr-2 cursor-pointer"
                                             onClick={()=> navigate(`/dashboard/edit-course/${course._id}`)}
                                             >
                                                 <MdEdit />
