@@ -5,6 +5,7 @@ const mailSender = require('../utils/mailSender')
 const { courseEnrollmentEmail } = require('../mail/templates/courseEnrollmentEmail')
 const { default: mongoose } = require('mongoose')
 const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto')
 
 
 //capture the payment and initiates the cashfree order
@@ -27,7 +28,7 @@ exports.capturePayment = async (req, res) => {
     try {
         course = await Course.findById(course_Id)
         if (!course) {
-            return res.status({
+            return res.status(404).json({
                 success: false,
                 message: "could not find the course"
             })
@@ -44,7 +45,7 @@ exports.capturePayment = async (req, res) => {
 
         //user already pay for the same course
         const uid = mongoose.Types.ObjectId(userId)
-        if (Course.studentEnrolled.includes(uid)) {
+        if (course.studentEnrolled.includes(uid)) {
             return res.status(200).json({
                 success: false,
                 message: "student is already emrolled"

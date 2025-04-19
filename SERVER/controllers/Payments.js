@@ -1,10 +1,70 @@
-// const { instance } = require('../config/razorpay')
-// const Course = require('../models/Course')
-// const User = require('../models/User')
-// const mailSender = require('../utils/mailSender')
-// const { courseEnrollmentEmail } = require('../mail/templates/courseEnrollmentEmail')
-// const { default: mongoose } = require('mongoose')
+const { instance } = require('../config/razorpay')
+const Course = require('../models/Course')
+const User = require('../models/User')
+const mailSender = require('../utils/mailSender')
+const { courseEnrollmentEmail } = require('../mail/templates/courseEnrollmentEmail')
+const { default: mongoose } = require('mongoose')
 
+// //capture the payment and initiates the razorpay order
+exports.capturePayment = async (req, res) => {
+    const { courses } = req.body
+    const userId = req.user.id
+
+    if (courses?.length === 0){
+        return  res.json({success:false, message:"Please provide course Id"})
+    }
+
+    let totalAmount= 0
+    for(const course_id of courses){
+        let course
+        try{
+            course= await Course.findById(course_id)
+            if(!course){
+                return res.status(200).json({success:false, message:"Could not find the course"})
+            }
+
+            const uid = mongoose.Types.ObjectId(userId)
+            if(course?.studentEnrolled.includes(uid)){
+                return res.status(200).json({success:false, message:"Student is already Enrolled"})
+            }
+
+            totalAmount += course.price
+        }
+        catch(error){
+            console.log("error in coursePayment while calculating totalAmount : ", error)
+            res.status(500).json({
+                success:false,
+                message:error.message
+            })
+        }
+    }
+
+    const options ={
+        Amount: totalAmount*100,
+        currency: "INR",
+        receipt: Math.random(Date.now()).toString()
+    }
+
+    try{
+        const paymentResponse = instance.orders.create(options)
+        res.status(200).json({
+            success:true,
+            message:paymentResponse
+        })
+    }
+    catch(error){
+        console.log("error in coursePayment while creating order : ", error)
+        res.status(500).json({
+            success:false,
+            message:"Could not initiate order"
+        })
+    }
+}
+
+// //verify Signature of razorpay and server
+exports.verifyPayment = async(req, res) => {
+    // 24
+}
 
 // //capture the payment and initiates the razorpay order
 // exports.capturePayment = async (req, res) => {

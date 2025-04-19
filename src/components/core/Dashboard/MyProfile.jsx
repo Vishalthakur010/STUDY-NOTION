@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 import { IconBtn } from "../../common/IconBtn"
 import { useNavigate } from "react-router-dom"
 import { RiFileEditLine } from "react-icons/ri";
+import { formattedDate } from "../../../utils/dateFormatter";
 
 
 export const MyProfile = () => {
@@ -104,7 +105,7 @@ export const MyProfile = () => {
                     </div>
                     <div>
                         <p className="text-sm text-richblack-400">Date of Birth</p>
-                        <p className="text-sm font-semibold">{user?.additionalDetails?.dateOfBirth ?? "Add date of birth"}</p>
+                        <p className="text-sm font-semibold">{formattedDate(user?.additionalDetails?.dateOfBirth) ?? "Add date of birth"}</p>
                     </div>
                 </div>
                 </div>
