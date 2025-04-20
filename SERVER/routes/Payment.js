@@ -12,10 +12,12 @@ const {
 //import payment controller
 const{
     capturePayment,
-    verifySignature
-}=require('../controllers/Payment')
+    verifyPayment,
+    SendPaymentSuccessEmail
+}=require('../controllers/Payments')
 
 router.post("/capturePayment",auth,isStudent, capturePayment)
-router.post("/verifySignature",auth,isStudent, verifySignature)
+router.post("/verifySignature",auth,isStudent, verifyPayment)
+router.post("/SendPaymentSuccessEmail",auth,isStudent, SendPaymentSuccessEmail)
 
 module.exports=router

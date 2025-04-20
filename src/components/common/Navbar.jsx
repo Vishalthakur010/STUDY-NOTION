@@ -41,7 +41,10 @@ const Navbar = () => {
         }
 
         return (
-                <div className='w-full h-14 bg-richblack-900 flex justify-center items-center border-b-[1px] border-richblack-700'>
+                <div
+                        className={`w-full h-14  flex justify-center items-center border-b-[1px] border-richblack-700
+                                        ${matchRoute("/") ? "bg-richblack-900" : "bg-richblack-800"}`}
+                >
                         <div className='w-11/12 max-w-maxContent flex justify-between items-center'>
 
                                 {/* Logo image */}
@@ -107,7 +110,7 @@ const Navbar = () => {
                                                 // add styles
                                                 user && user?.accountType !== "Instructor" && (
                                                         <Link to="/dashboard/cart" className='relative'>
-                                                                <AiOutlineShoppingCart className='text-2xl text-richblack-100'/>
+                                                                <AiOutlineShoppingCart className='text-2xl text-richblack-100' />
                                                                 {
                                                                         totalItems > 0 && (
                                                                                 <span className='absolute -bottom-2 -right-2 h-5 w-5 text-sm font-semibold rounded-full 
