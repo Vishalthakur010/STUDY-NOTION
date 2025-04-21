@@ -3,8 +3,7 @@ import { apiconnector } from "../apiconnector"
 import rzpLogo from "../../assets/Logo/rzp_logo.png"
 import { setPaymentLoading } from "../../slices/courseSlice"
 import { resetCart } from "../../slices/cartSlice"
-
-const { studentEndpoints } = require("../api")
+import { studentEndpoints } from "../api"
 
 const {COURSE_PAYMENT_API, COURSE_VERIFY_API, SEND_PAYMENT_SUCCESS_EMAIL_API} = studentEndpoints
 
@@ -38,7 +37,7 @@ export async function buyCourse(courses, token, navigate, dispatch, userDetails)
         const orderResponse = await apiconnector("POST", COURSE_PAYMENT_API,
             {courses},
             {
-                Authorization : `Bearer ${token}`
+                Authorization: `Bearer ${token}`
             }
         )
         if(!orderResponse){
@@ -47,7 +46,8 @@ export async function buyCourse(courses, token, navigate, dispatch, userDetails)
 
         // Option
         const option ={
-            key: process.env.RAZORPAY_KEY,
+            key: import.meta.env.VITE_RAZORPAY_KEY,
+            // key: process.env.RAZORPAY_KEY,
             currency: orderResponse.data.data.currency,
             amount: `${orderResponse.data.data.amount}`,
             order_id: orderResponse.data.data.id,
@@ -58,20 +58,29 @@ export async function buyCourse(courses, token, navigate, dispatch, userDetails)
                 name: `${userDetails.name}`,
                 email: userDetails.email
             },
-            handler: function(response){
+            handler: async function(response){
                 // Send successfull email
-                sendPaymentSuccessEmail(response, orderResponse.data.data.amount, token)
+                await sendPaymentSuccessEmail(response, orderResponse.data.data.amount, token)
 
                 // verifyPayment
-                verifyPayment({...response, courses}, token, navigate, dispatch)
+                await verifyPayment({...response, courses}, token, navigate, dispatch)
             }
         }
+
+        const paymentObject = new window.Razorpay(option)
+        paymentObject.open()
+        paymentObject.on("Payment Failed", function(response){
+            toast.error("Oops , Payment failed")
+            console.log(response.error)
+        })
     }
     catch(error){
         console.log("Payment API error : ", error)
         toast.error("Could not make payment")
     }
-    toast.dismiss(toastid)
+    finally {
+        toast.dismiss(toastid);
+      }
 }
 
 async function sendPaymentSuccessEmail(response, amount, token){
@@ -117,4 +126,4 @@ async function verifyPayment(dispatch){
     toast.dismiss(toastid)
     dispatch(setPaymentLoading(false))
 }
-// 1:29
+// 2:06 

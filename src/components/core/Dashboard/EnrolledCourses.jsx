@@ -10,36 +10,36 @@ export const EnrolledCourses = () => {
     const [enrolledCourses, setEnrolledCourses] = useState(null)
 
      // Mock Data for Design
-     const mockData = [
-        {
-            thumbnail: loginimg,
-            courseName: "The Complete Python",
-            coursedescription: "Short Description",
-            totalDuration: "2hr 30mins",
-            progressPercentage: 75
-        },
-        {
-            thumbnail: loginimg,
-            courseName: "The Complete Python",
-            coursedescription: "Short Description",
-            totalDuration: "2hr 30mins",
-            progressPercentage: 94
-        },
-        {
-            thumbnail: loginimg,
-            courseName: "The Complete Python",
-            coursedescription: "Short Description",
-            totalDuration: "2hr 30mins",
-            progressPercentage: 25
-        },
-        {
-            thumbnail: loginimg,
-            courseName: "The Complete Python",
-            coursedescription: "Short Description",
-            totalDuration: "2hr 30mins",
-            progressPercentage: 60
-        },
-    ]
+    //  const mockData = [
+    //     {
+    //         thumbnail: loginimg,
+    //         courseName: "The Complete Python",
+    //         coursedescription: "Short Description",
+    //         totalDuration: "2hr 30mins",
+    //         progressPercentage: 75
+    //     },
+    //     {
+    //         thumbnail: loginimg,
+    //         courseName: "The Complete Python",
+    //         coursedescription: "Short Description",
+    //         totalDuration: "2hr 30mins",
+    //         progressPercentage: 94
+    //     },
+    //     {
+    //         thumbnail: loginimg,
+    //         courseName: "The Complete Python",
+    //         coursedescription: "Short Description",
+    //         totalDuration: "2hr 30mins",
+    //         progressPercentage: 25
+    //     },
+    //     {
+    //         thumbnail: loginimg,
+    //         courseName: "The Complete Python",
+    //         coursedescription: "Short Description",
+    //         totalDuration: "2hr 30mins",
+    //         progressPercentage: 60
+    //     },
+    // ]
 
     const getEnrolledCourses = async () => {
         try {
@@ -53,8 +53,8 @@ export const EnrolledCourses = () => {
 
 
     useEffect(() => {
-        // getEnrolledCourses()
-        setEnrolledCourses(mockData)
+        getEnrolledCourses()
+        // setEnrolledCourses(mockData)
     }, [])
 
     return (

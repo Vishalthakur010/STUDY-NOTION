@@ -1,11 +1,11 @@
 const { instance } = require('../config/razorpay')
 const Course = require('../models/Course')
 const User = require('../models/User')
-const mailSender = require('../utils/mailSender')
 const { courseEnrollmentEmail } = require('../mail/templates/courseEnrollmentEmail')
 const { default: mongoose } = require('mongoose')
 const crypto = require("crypto");
 const { paymentSuccessEmail } = require('../mail/templates/paymentSuccessEmail')
+const { mailSender } = require('../utils/mailSender')
 
 //capture the payment and initiates the razorpay order
 exports.capturePayment = async (req, res) => {
@@ -25,7 +25,8 @@ exports.capturePayment = async (req, res) => {
                 return res.status(200).json({ success: false, message: "Could not find the course" })
             }
 
-            const uid = mongoose.Types.ObjectId(userId)
+            const uid = new mongoose.Types.ObjectId(String(userId))
+
             if (course?.studentEnrolled.includes(uid)) {
                 return res.status(200).json({ success: false, message: "Student is already Enrolled" })
             }
@@ -42,7 +43,7 @@ exports.capturePayment = async (req, res) => {
     }
 
     const options = {
-        Amount: totalAmount * 100,
+        amount: totalAmount * 100,
         currency: "INR",
         receipt: Math.random(Date.now()).toString()
     }
@@ -83,7 +84,7 @@ exports.verifyPayment = async (req, res) => {
 
     if (razorpay_signature === expectedSignature) {
         // enroll the student
-        enrollStudents(courses, userId)
+        await enrollStudents(courses, userId, res)
 
         //return response
         return res.status(200).json({ success: true, message: "Payment Verified" })
