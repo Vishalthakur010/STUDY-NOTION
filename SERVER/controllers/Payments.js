@@ -22,7 +22,7 @@ exports.capturePayment = async (req, res) => {
         try {
             course = await Course.findById(course_id)
             if (!course) {
-                return res.status(200).json({ success: false, message: "Could not find the course" })
+                return res.status(400).json({ success: false, message: "Could not find the course" })
             }
 
             const uid = new mongoose.Types.ObjectId(String(userId))
@@ -54,6 +54,7 @@ exports.capturePayment = async (req, res) => {
             success: true,
             data: paymentResponse
         })
+        console.log("[BACKEND] Razorpay Response:", paymentResponse);
     }
     catch (error) {
         console.log("error in coursePayment while creating order : ", error)
@@ -74,22 +75,33 @@ exports.verifyPayment = async (req, res) => {
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature ||
         !courses || !userId) {
-        res.status(400).json({ success: false, message: "Missing required payment details" })
+            console.error("[VERIFY] Missing fields");
+        return res.status(400).json({ success: false, message: "Missing required payment details" })
     }
 
-    const body = razorpay_order_id + "|" + razorpay_payment_id
-    const expectedSignature = crypto
-        .createHmac("sha256", process.env.RAZORPAY_SECRET)
-        .update(body.toString())
+    try {
+        const body = razorpay_order_id + "|" + razorpay_payment_id
+        const expectedSignature = crypto
+            .createHmac("sha256", process.env.RAZORPAY_SECRET)
+            .update(body.toString())
+            .digest("hex")
 
-    if (razorpay_signature === expectedSignature) {
-        // enroll the student
-        await enrollStudents(courses, userId, res)
+        // if signature match then enroll the student
+        if (razorpay_signature === expectedSignature) {
+            await enrollStudents(courses, userId, res)
 
-        //return response
-        return res.status(200).json({ success: true, message: "Payment Verified" })
+            //return response
+            return res.status(200).json({ success: true, message: "Payment Verified" })
+        }
+        return res.status(400).json({ success: false, message: "Payment Failed" })
     }
-    return res.status(200).json({ success: true, message: "Payment Failed" })
+    catch (error) {
+        console.log("error in verifyPayment while varifying the payment : ", error)
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
 }
 
 //Function for enrolling student
@@ -97,6 +109,10 @@ const enrollStudents = async (courses, userId, res) => {
     if (!courses || !userId) {
         return res.status(400).json({ success: false, message: "Missing courses or userId" })
     }
+    console.log("[ENROLL] Starting enrollment for:", {
+        courses,
+        userId
+      });
 
     for (const courseId of courses) {
 
@@ -113,6 +129,7 @@ const enrollStudents = async (courses, userId, res) => {
             if (!enrolledCourse) {
                 return res.status(500).json({ success: false, messasge: "Course not found" })
             }
+            console.log("[ENROLL] Course Update Result:", enrolledCourse);
 
             // Find the student and add the course to their enrolled courses list
             const enrolledStudent = await User.findByIdAndUpdate(userId,
@@ -126,6 +143,7 @@ const enrollStudents = async (courses, userId, res) => {
             if (!enrolledStudent) {
                 return res.status(500).json({ success: false, messasge: "Student not found" })
             }
+            console.log("[ENROLL] User Update Result:", enrolledStudent);
 
             //Send the email to the student
             const emailResponse = await mailSender(
@@ -136,7 +154,7 @@ const enrollStudents = async (courses, userId, res) => {
             if (!emailResponse) {
                 return res.status(500).json({ success: false, messasge: "Could not send email" })
             }
-            console.log("Email Response : ", emailResponse)
+            // console.log("Email Response : ", emailResponse)
         }
         catch (error) {
             console.log("Error while enrolling Student", error)
@@ -165,7 +183,7 @@ exports.SendPaymentSuccessEmail = async (req, res) => {
     }
     catch (error) {
         console.log("error in SendPaymentSuccessEmail Controller while sending email : ", error)
-        return res.status(500).json({success:false, message:"Could not send email"})
+        return res.status(500).json({ success: false, message: "Could not send email" })
     }
 }
 

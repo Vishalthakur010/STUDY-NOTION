@@ -40,7 +40,7 @@ export async function buyCourse(courses, token, navigate, dispatch, userDetails)
                 Authorization: `Bearer ${token}`
             }
         )
-        if(!orderResponse){
+        if(!orderResponse.data.success){
             throw new Error(orderResponse.data.message)
         }
 
@@ -55,7 +55,7 @@ export async function buyCourse(courses, token, navigate, dispatch, userDetails)
             description: "Thank you for purchasing the course",
             image: rzpLogo,
             prefill:{
-                name: `${userDetails.name}`,
+                name: `${userDetails.firstName} ${userDetails.lastName}`,
                 email: userDetails.email
             },
             handler: async function(response){
@@ -69,18 +69,19 @@ export async function buyCourse(courses, token, navigate, dispatch, userDetails)
 
         const paymentObject = new window.Razorpay(option)
         paymentObject.open()
-        paymentObject.on("Payment Failed", function(response){
-            toast.error("Oops , Payment failed")
+        paymentObject.on("payment.failed", function(response){
+            toast.error("Oops, payment failed")
             console.log(response.error)
         })
     }
-    catch(error){
-        console.log("Payment API error : ", error)
-        toast.error("Could not make payment")
+    catch(error) {
+        console.log("PAYMENT API ERROR.....", error);
+        toast.error("Could not make Payment");
     }
-    finally {
-        toast.dismiss(toastid);
-      }
+    toast.dismiss(toastid); 
+    // finally {
+    //     toast.dismiss(toastid);
+    //   }
 }
 
 async function sendPaymentSuccessEmail(response, amount, token){
@@ -101,8 +102,8 @@ async function sendPaymentSuccessEmail(response, amount, token){
     }
 }
 
-async function verifyPayment(dispatch){
-    const toastid = toast.loading("Loading...")
+async function verifyPayment(bodyData, token, navigate, dispatch){
+    const toastid = toast.loading("Verifying Payment....");
     dispatch(setPaymentLoading(true))
 
     try{
@@ -126,4 +127,4 @@ async function verifyPayment(dispatch){
     toast.dismiss(toastid)
     dispatch(setPaymentLoading(false))
 }
-// 2:06 
+// 2:15

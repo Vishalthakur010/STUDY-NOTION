@@ -215,6 +215,7 @@ exports.getEnrolledCourses = async (req, res) => {
                     message: `Could not find user with id: ${userId}`,
                 })
             }
+            // console.log("userDetails", userDetails)
 
             return res.status(200).json({
                 success:true,

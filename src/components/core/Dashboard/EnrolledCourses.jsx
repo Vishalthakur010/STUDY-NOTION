@@ -45,6 +45,7 @@ export const EnrolledCourses = () => {
         try {
             const response = await getUserEnrolledCourses(token)
             setEnrolledCourses(response)
+            console.log("student Enrolled Courses : ", enrolledCourses)
         }
         catch (error) {
             console.log("unable to fetch enabled courses : ", error.message)
@@ -86,16 +87,16 @@ export const EnrolledCourses = () => {
                                         >
                                             <div className="flex flex-row gap-6 w-[50%]">
                                                 <img 
-                                                src={course.thumbnail} 
+                                                src={course?.thumbnail} 
                                                 alt="course-thumbnail" 
                                                 className="w-[50px] rounded-lg"
                                                 />
                                                 <div>
                                                     <p className="text-richblack-25 font-semibold">
-                                                        {course.courseName}
+                                                        {course?.courseName}
                                                         </p>
                                                     <p className="text-richblack-300">
-                                                        {course.coursedescription}
+                                                        {course?.coursedescription}
                                                         </p>
                                                 </div>
                                             </div>
