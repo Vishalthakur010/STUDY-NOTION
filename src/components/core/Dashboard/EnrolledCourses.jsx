@@ -108,7 +108,7 @@ export const EnrolledCourses = () => {
                                             <p className="text-sm">Progress {course?.progressPercentage || 0}%</p>
 
                                             <ProgressBar
-                                                completed={course?.progressPercentage || 1}
+                                                completed={course?.progressPercentage || 0}
                                                 height="8px"
                                                 width="150px"
                                                 isLabelVisible={false}
