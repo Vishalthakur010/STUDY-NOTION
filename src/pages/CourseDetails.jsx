@@ -41,7 +41,7 @@ export const CourseDetails = () => {
         })
         setTotalLecture(lectures)
     }, [courseData])
-    
+
 
     const handleBuyCourse = () => {
         if (token) {
@@ -60,3 +60,4 @@ export const CourseDetails = () => {
         </div>
     )
 }
+// 168 - 16 min
