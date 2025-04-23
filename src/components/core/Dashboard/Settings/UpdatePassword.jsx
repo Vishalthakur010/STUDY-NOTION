@@ -8,10 +8,10 @@ import { useNavigate } from "react-router-dom"
 
 export const UpdatePassword = () => {
     const { token } = useSelector((state) => (state.auth))
-    const navigate= useNavigate()
+    const navigate = useNavigate()
 
-    const[showOldPassword, setShowOldPassword] = useState(false)
-    const[showNewPassword, setShowNewPassword] = useState(false)
+    const [showOldPassword, setShowOldPassword] = useState(false)
+    const [showNewPassword, setShowNewPassword] = useState(false)
 
     const {
         register,
@@ -42,22 +42,22 @@ export const UpdatePassword = () => {
                     <div className="flex flex-col gap-5 lg:flex-row">
                         <div className="relative flex flex-col gap-2 lg:w-[48%]">
                             <label htmlFor="oldPassword" className="label-style">Current Password</label>
-                            <input 
-                            name="oldPassword"
-                            type={showOldPassword? "text" : "password"}
-                            id="oldPassword"
-                            placeholder="Enter Current Password"
-                            {...register("oldPassword", {required:true})}
-                            className="form-style"
+                            <input
+                                name="oldPassword"
+                                type={showOldPassword ? "text" : "password"}
+                                id="oldPassword"
+                                placeholder="Enter Current Password"
+                                {...register("oldPassword", { required: true })}
+                                className="form-style"
                             />
                             <span
-                            onClick={ () => setShowOldPassword((prev) => !prev)}
-                            className="absolute right-3 top-[38px] cursor-pointer"
+                                onClick={() => setShowOldPassword((prev) => !prev)}
+                                className="absolute right-3 top-[38px] cursor-pointer"
                             >
                                 {
-                                    showOldPassword? 
-                                    <AiOutlineEye fontSize={24} fill="#AFB2BF" />
-                                    : <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
+                                    showOldPassword ?
+                                        <AiOutlineEye fontSize={24} fill="#AFB2BF" />
+                                        : <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
                                 }
                             </span>
                             {
@@ -68,22 +68,22 @@ export const UpdatePassword = () => {
                         </div>
                         <div className="relative flex flex-col gap-2 lg:w-[48%]">
                             <label htmlFor="newPassword" className="label-style">Change Password</label>
-                            <input 
-                            name="newPassword"
-                            type={showNewPassword ? "text" : "password"}
-                            id="newPassword"
-                            placeholder="Enter New Password"
-                            {...register("newPassword", {required:true})}
-                            className="form-style"
+                            <input
+                                name="newPassword"
+                                type={showNewPassword ? "text" : "password"}
+                                id="newPassword"
+                                placeholder="Enter New Password"
+                                {...register("newPassword", { required: true })}
+                                className="form-style"
                             />
                             <span
-                            onClick={ () => setShowNewPassword((prev) => !prev)}
-                            className="absolute right-3 top-[38px] cursor-pointer"
+                                onClick={() => setShowNewPassword((prev) => !prev)}
+                                className="absolute right-3 top-[38px] cursor-pointer"
                             >
                                 {
-                                    showNewPassword? 
-                                    <AiOutlineEye fontSize={24} fill="#AFB2BF" />
-                                    : <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
+                                    showNewPassword ?
+                                        <AiOutlineEye fontSize={24} fill="#AFB2BF" />
+                                        : <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
                                 }
                             </span>
                             {

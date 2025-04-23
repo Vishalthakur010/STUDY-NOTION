@@ -2,56 +2,21 @@ import { useSelector } from "react-redux"
 import { getUserEnrolledCourses } from "../../../services/operations/profileAPI"
 import { useEffect, useState } from "react"
 import ProgressBar from "@ramonak/react-progress-bar"
-import loginimg from "../../../assets/Images/login.webp"
 
 export const EnrolledCourses = () => {
 
     const { token } = useSelector((state) => state.auth)
     const [enrolledCourses, setEnrolledCourses] = useState(null)
 
-    // Mock Data for Design
-    //  const mockData = [
-    //     {
-    //         thumbnail: loginimg,
-    //         courseName: "The Complete Python",
-    //         coursedescription: "Short Description",
-    //         totalDuration: "2hr 30mins",
-    //         progressPercentage: 75
-    //     },
-    //     {
-    //         thumbnail: loginimg,
-    //         courseName: "The Complete Python",
-    //         coursedescription: "Short Description",
-    //         totalDuration: "2hr 30mins",
-    //         progressPercentage: 94
-    //     },
-    //     {
-    //         thumbnail: loginimg,
-    //         courseName: "The Complete Python",
-    //         coursedescription: "Short Description",
-    //         totalDuration: "2hr 30mins",
-    //         progressPercentage: 25
-    //     },
-    //     {
-    //         thumbnail: loginimg,
-    //         courseName: "The Complete Python",
-    //         coursedescription: "Short Description",
-    //         totalDuration: "2hr 30mins",
-    //         progressPercentage: 60
-    //     },
-    // ]
-
     const getEnrolledCourses = async () => {
         try {
             const response = await getUserEnrolledCourses(token)
             setEnrolledCourses(response)
-            console.log("student Enrolled Courses : ", enrolledCourses)
         }
         catch (error) {
             console.log("unable to fetch enabled courses : ", error.message)
         }
     }
-
 
     useEffect(() => {
         getEnrolledCourses()
