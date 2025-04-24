@@ -2,6 +2,7 @@ import { IoIosStarOutline } from "react-icons/io"
 import { useDispatch, useSelector } from "react-redux"
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { removeFromCart } from "../../../../slices/cartSlice";
+import { RatingStars } from "../../../common/RatingStars";
 
 export const RenderCartCourses = () => {
 
@@ -12,7 +13,7 @@ export const RenderCartCourses = () => {
         <div>
             {
                 cart.map((course, index) => (
-                    <div>
+                    <div key={index}>
                         <div>
                             <img
                                 src={course.thumbnail}
@@ -29,7 +30,7 @@ export const RenderCartCourses = () => {
                             <div>
                                 <span>4.8</span>
 
-                                <ReactStars
+                                <RatingStars
                                     count={5}
                                     size={20}
                                     edit={false}
