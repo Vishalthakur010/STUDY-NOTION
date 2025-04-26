@@ -11,6 +11,8 @@ import { formDate } from "../services/operations/formDate"
 import { BiInfoCircle } from "react-icons/bi"
 import { HiOutlineGlobeAlt } from "react-icons/hi"
 import { CourseDetailsCard } from "../components/core/Course/CourseDetailsCard"
+import { Footer } from "../components/common/Footer"
+import { CourseAccordionBar } from "../components/core/Course/CourseAccordionBar"
 
 export const CourseDetails = () => {
 
@@ -53,6 +55,15 @@ export const CourseDetails = () => {
     }, [courseData])
     // console.log("totalLecture : ", totalLecture)
 
+    const [isActive, setIsActive] = useState(Array(0))
+    const handleActive = (id) => {
+        setIsActive(
+            !isActive.includes(id) ?
+                isActive.concat(id)
+                : isActive.filter((e) => e != id)
+        )
+    }
+
 
     const handleBuyCourse = () => {
         if (token) {
@@ -69,9 +80,11 @@ export const CourseDetails = () => {
         })
     }
 
-    if (loading || !courseData) {
+    if (loading || !courseData || paymentLoading) {
         return (
-            <div>Loading...</div>
+            <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+                <div className="spinner"></div>
+            </div>
         )
     }
     if (!courseData.success) {
@@ -91,13 +104,12 @@ export const CourseDetails = () => {
         instructor,
         studentEnrolled,
         whatYouWillLearn,
-        totalDuration,
         ratingAndReview,
         createdAt
     } = courseData?.data?.courseDetails
 
     return (
-        <div className="text-white w-full">
+        <div className="text-white w-full overflow-y-auto">
 
             {/* Section 1 */}
             <div className="bg-richblack-800">
@@ -128,7 +140,7 @@ export const CourseDetails = () => {
                         </p>
                     </div>
 
-                    <div className="absolute right-0 bg-richblack-700">
+                    <div className="absolute top-[80px] right-0 bg-richblack-700 rounded-lg">
                         <CourseDetailsCard
                             course={courseData?.data?.courseDetails}
                             setConfirmationModal={setConfirmationModal}
@@ -138,16 +150,76 @@ export const CourseDetails = () => {
                 </div>
             </div>
 
+            {/* section 2 */}
+            <div className="w-11/12 max-w-maxContent mx-auto mb-12">
 
-            {/* <button className="bg-yellow-50 p-6"
-                onClick={() => handleBuyCourse()}
-            >
-                Buy Now
-            </button> */}
+                <div className=" w-[65%] flex flex-col gap-10">
+
+                    {/* What you will learn */}
+                    <div className=" p-6 border-[1px] border-richblack-400 mt-[50px] flex flex-col gap-4">
+                        <p className="text-4xl font-bold">What you'll learn</p>
+                        <p className="text-xl font-bold text-richblack-300">{whatYouWillLearn}</p>
+                    </div>
+
+                    {/* course content */}
+                    <div className="flex justify-between">
+                        <div className="flex flex-col gap-4">
+                            <p className="text-4xl font-bold">Course Content</p>
+                            <div className="flex gap-2 text-richblack-300 font-semibold">
+                                <span>{courseContent.length} section(s)</span>
+                                <span>{totalLecture} lecture(s)</span>
+                                <span>{courseData?.data?.totalDuration} total length</span>
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={() => handleActive([])}
+                            className="font-semibold text-yellow-50"
+                        >
+                            Collapse all Sections
+                        </button>
+                    </div>
+
+                    {/* Course Details Accordion*/}
+                    {
+                        courseContent?.map((course, index) => (
+                            <CourseAccordionBar
+                                key={index}
+                                course={course}
+                                isActive={isActive}
+                                handleActive={handleActive}
+                            />
+                        ))
+                    }
+
+
+                    {/* Author Detail */}
+                    <div className="flex flex-col gap-4">
+                        <p className="text-3xl font-bold">Author</p>
+
+                        <div className="flex items-center gap-3">
+                            <img
+                                src={
+                                    instructor?.image ?
+                                        instructor?.image
+                                        : `https://api.dicebear.com/5.x/initials/svg?seed=${instructor?.firstName} ${instructor?.lastName}`
+                                }
+                                className="w-14 h-14 rounded-full"
+                            />
+                            <p className="font-bold">{instructor?.firstName} {instructor?.lastName}</p>
+                        </div>
+
+                        <p className="text-richblack-50 font-semibold">{instructor?.additionalDetails?.about}</p>
+                    </div>
+
+                </div>
+            </div>
 
             {
                 confirmationModal && <ConfirmationModal modalData={confirmationModal} />
             }
+
+            <Footer />
         </div>
     )
 }

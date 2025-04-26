@@ -5,6 +5,7 @@ import copy from "copy-to-clipboard";
 import toast from "react-hot-toast";
 import { ACCOUNT_TYPE } from "../../../utils/constants";
 import { addToCart } from "../../../slices/cartSlice";
+import { VscTriangleRight } from "react-icons/vsc";
 
 export const CourseDetailsCard = ({
     course,
@@ -43,24 +44,25 @@ export const CourseDetailsCard = ({
     }
 
     return (
-        <div className="m-4">
+        <div className="m-4 flex flex-col gap-4 rounded-lg">
             <img
                 src={course?.thumbnail}
                 alt={course?.courseName}
-                className="max-h-[300px] min-h-[180px] w-[400px] rounded-xl"
+                className="max-h-[300px] min-h-[180px] w-[350px] rounded-xl"
             />
 
-            <p>
+            <p className="text-3xl text-richblack-5 font-bold">
                 Rs {course?.price}
             </p>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
                 <button
                     onClick={
                         user && course?.studentEnrolled.includes(user._id)
                             ? (() => navigate("/dashboard/enrolled-courses"))
                             : handleBuyCourse
                     }
+                    className="text-richblack-900 bg-yellow-50 p-2 rounded-md text-lg font-semibold"
                 >
                     {
                         user && course?.studentEnrolled.includes(user._id)
@@ -71,24 +73,27 @@ export const CourseDetailsCard = ({
 
                 {
                     !course?.studentEnrolled.includes(user._id) &&
-                    <button onClick={handleAddToCart}>
+                    <button onClick={handleAddToCart}
+                    className="bg-richblack-900 text-richblack-5 p-2 rounded-md text-lg font-semibold"
+                    >
                         Add to Cart
                     </button>
                 }
             </div>
 
-            <div>
-                <p>
+            <div className="flex flex-col gap-4">
+                <p className="text-center text-sm text-richblack-100 font-semibold mt-2">
                     30-Day Money-Back Guarantee
-                </p>
-                <p>
-                    This Course includes :
                 </p>
 
                 <div>
+                <p className="text-lg font-semibold">
+                    This Course includes :
+                </p>
                     {
                         course?.instructions.map((item, index) => (
-                            <p key={index} className="text-caribbeangreen-300 font-bold">
+                            <p key={index} className="flex items-center gap-1 text-caribbeangreen-300 text-sm font-bold mt-1">
+                                <VscTriangleRight/>
                                 <span>{item}</span>
                             </p>
                         ))
@@ -98,7 +103,7 @@ export const CourseDetailsCard = ({
 
             <button
             onClick={handleShare}
-            className="flex items-center gap-2 text-yellow-100 font-semibold"
+            className="flex items-center justify-center gap-2 text-yellow-100 font-semibold "
             >
                 <FaShareFromSquare/>
                 Share
@@ -106,4 +111,3 @@ export const CourseDetailsCard = ({
         </div>
     )
 }
-// 168 :- 1:12 
