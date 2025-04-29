@@ -27,7 +27,8 @@ import { AddCourse } from './components/core/Dashboard/AddCourse';
 import EditCourse from './components/core/Dashboard/EditCourse';
 import { Catalog } from './pages/Catalog';
 import {CourseDetails} from './pages/CourseDetails'
-import { viewCourse } from './pages/viewCourse';
+import { ViewCourse } from './pages/ViewCourse';
+import VideoDetails from './components/core/ViewCourse/VideoDetails';
 
 function App() {
 
@@ -133,7 +134,7 @@ function App() {
         <Route
         element={
           <PrivateRoute>
-            <viewCourse/>
+            <ViewCourse/>
           </PrivateRoute>
         }
         >

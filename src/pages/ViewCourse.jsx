@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { Outlet, useParams } from "react-router-dom"
 import { getFullCourseDetails } from "../services/operations/courseDetailsAPI"
 import { setComplatedLectures, setCourseSectionData, setEntireCourseData, setTotalNoOfLectures } from "../slices/viewCourseSlice"
+import { VideoDetailsSideBar } from "../components/core/ViewCourse/VideoDetailsSideBar"
+import CourseReviewModal from "../components/core/ViewCourse/CourseReviewModal"
 
-export const viewCourse = () => {
+export const ViewCourse = () => {
 
     const [reviewModal, setReviewModal] = useState(false)
     const {courseId}=useParams()
