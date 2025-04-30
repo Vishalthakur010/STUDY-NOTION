@@ -56,7 +56,7 @@ export const EnrolledCourses = () => {
                                         className="flex flex-row gap-6 w-[50%] cursor-pointer"
                                         onClick={()=>{
                                             navigate(
-                                                `/view-course/${course?._id}/section/${course?.courseContent?.[0]?._id}/sub-Section/${course?.courseContent?.[0]?.subSection?.[0]?._id}`
+                                                `/view-course/${course?._id}/section/${course?.courseContent?.[0]?._id}/sub-section/${course?.courseContent?.[0]?.subSection?.[0]?._id}`
                                             )
                                         }}
                                         >
