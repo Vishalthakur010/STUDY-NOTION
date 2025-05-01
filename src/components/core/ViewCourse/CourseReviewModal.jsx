@@ -103,7 +103,7 @@ const CourseReviewModal = ({ setReviewModal }) => {
                         Cancel
                     </button>
                     <IconBtn
-                        text={Save}
+                        text={"Save"}
                     />
                 </div>
 

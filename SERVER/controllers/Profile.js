@@ -1,7 +1,9 @@
 const Course = require('../models/Course')
+const CourseProgress = require('../models/CourseProgress')
 const Profile = require('../models/Profile')
 const User = require('../models/User')
 const { uploadImageToCloudinary } = require('../utils/imageUploader')
+const { convertSecondsToDuration } = require('../utils/secToDuration')
 require('dotenv').config()
 
 //update profile
@@ -200,34 +202,59 @@ exports.getEnrolledCourses = async (req, res) => {
         //fetching userDetails and enrolled courses
         let userDetails = await User.findById(userId)
             .populate({
-                path:"courses",
-                populate:{
-                    path:"courseContent",
-                    populate:{
-                        path:"subSection"
+                path: "courses",
+                populate: {
+                    path: "courseContent",
+                    populate: {
+                        path: "subSection"
                     }
                 }
-            }).exec()
-
-            if(!userDetails){
-                return res.status(400).json({
-                    success:false,
-                    message: `Could not find user with id: ${userId}`,
-                })
-            }
-            // console.log("userDetails", userDetails)
-
-            return res.status(200).json({
-                success:true,
-                data:userDetails.courses
             })
+            .exec()
+
+
+        userDetails = userDetails.toObject()
+
+        // Calculate progress for each course
+        for (const course of userDetails.courses) {
+            // Calculate total subsections
+            let totalSubsections = 0
+            let totalDurationInSeconds = 0
+
+            for (const section of course.courseContent) {
+                totalSubsections += section.subSection.length
+                totalDurationInSeconds += section.subSection.reduce(
+                    (acc, curr) => acc + parseInt(curr.timeDuration || 0),
+                    0
+                )
+            }
+
+            // Get completed videos count
+            const courseProgress = await CourseProgress.findOne({
+                courseID: course._id,
+                userID: userId
+            })
+
+            const completedVideosCount = courseProgress?.completedVideo?.length || 0
+
+            // Calculate progress percentage
+            course.totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+            course.progressPercentage = totalSubsections === 0 
+                ? 100 
+                : Math.round((completedVideosCount / totalSubsections) * 100 * 100) / 100
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: userDetails.courses
+        })
     }
     catch (error) {
         console.log("error in getEnrolledCourses controller : ", error)
         res.status(500).json({
             success: false,
-            error: error.message,
-            message: "Failed to get Enrolled courses details"
+            message: "Failed to get enrolled courses details",
+            error: error.message
         })
     }
 }

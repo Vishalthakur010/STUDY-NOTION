@@ -57,10 +57,17 @@ export const CourseDetails = () => {
 
     const [isActive, setIsActive] = useState(Array(0))
     const handleActive = (id) => {
-        setIsActive(
-            !isActive.includes(id) ?
-                isActive.concat(id)
-                : isActive.filter((e) => e != id)
+        // If id is an array, directly set it as the new state
+        if (Array.isArray(id)) {
+            setIsActive(id)
+            return
+        }
+        
+        // Toggle individual section
+        setIsActive(prev => 
+            prev.includes(id) 
+                ? prev.filter(item => item !== id)
+                : [...prev, id]
         )
     }
 
@@ -140,7 +147,7 @@ export const CourseDetails = () => {
                         </p>
                     </div>
 
-                    <div className="absolute top-[80px] right-0 bg-richblack-700 rounded-lg">
+                    <div className="lg:absolute lg:top-[80px] lg:right-0 bg-richblack-700 rounded-lg">
                         <CourseDetailsCard
                             course={courseData?.data?.courseDetails}
                             setConfirmationModal={setConfirmationModal}

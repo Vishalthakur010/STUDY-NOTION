@@ -32,7 +32,7 @@ export const ViewCourse = () => {
     return (
         <div>
 
-            <div>
+            <div className="flex">
                 <VideoDetailsSideBar setReviewModal={setReviewModal} />
                 <div>
                     <Outlet />

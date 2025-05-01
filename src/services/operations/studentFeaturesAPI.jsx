@@ -136,4 +136,3 @@ async function verifyPayment(bodyData, token, navigate, dispatch) {
         dispatch(setPaymentLoading(false))
     }
 }
-// 2:15
