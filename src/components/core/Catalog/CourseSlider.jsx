@@ -24,7 +24,6 @@ export const CourseSlider = ({courses})=> {
                     spaceBetween={30}
                     loop={true}
                     pagination={{ clickable: true }}
-
                     breakpoints={{
                         1024: {
                             slidesPerView:3

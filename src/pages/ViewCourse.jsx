@@ -18,7 +18,7 @@ export const ViewCourse = () => {
             const courseData = await getFullCourseDetails(courseId, token)
             dispatch(setCourseSectionData(courseData?.courseDetails?.courseContent))
             dispatch(setEntireCourseData(courseData?.courseDetails))
-            dispatch(setComplatedLectures(courseData?.complatedVideos))
+            dispatch(setComplatedLectures(courseData?.completedVideos))
             let lectures = 0
             courseData?.courseDetails?.courseContent.forEach((sec) => {
                 lectures += sec.subSection.length

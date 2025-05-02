@@ -3,6 +3,7 @@ import ContactUsForm from "../components/core/ContactPage/ContactUsForm";
 import { HiOutlineChatAlt2, } from "react-icons/hi";
 import { IoCallOutline, IoEarthOutline } from "react-icons/io5";
 import { Footer } from "../components/common/Footer";
+import { ReviewSlider } from "../components/common/ReviewSlider";
 
 const ContactUs = () => {
     return (
@@ -68,7 +69,7 @@ const ContactUs = () => {
                 <h2 className='text-center text-4xl font-semibold text-white'>
                     Reviews from other learners
                 </h2>
-                {/* <RatingAndReview/> */}
+                <ReviewSlider/>
             </section>
 
             {/* section-3 */}

@@ -70,3 +70,7 @@ export const settingsEndpoints = {
         DELETE_ACCOUNT: BASE_URL + "/profile/deleteAccount" //checked
 }
 
+// Rating and Review
+export const ratingsEndpoints={
+        REVIEWS_DETAILS_API : BASE_URL + "/course/getAllRating"
+}

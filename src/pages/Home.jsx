@@ -10,6 +10,7 @@ import TimelineSection from "../components/core/HomePage/TimelineSection"
 import InstructorSection from '../components/core/HomePage/InstructorSection';
 import { Footer } from '../components/common/Footer';
 import ExploreMore from '../components/core/HomePage/ExploreMore';
+import { ReviewSlider } from '../components/common/ReviewSlider';
 
 
 const Home = () => {
@@ -125,7 +126,7 @@ const Home = () => {
                                         />
                                 </div>
 
-                                <ExploreMore/>
+                                <ExploreMore />
 
                         </div>
 
@@ -161,34 +162,34 @@ const Home = () => {
                                                         <div className='text-[16px] font-semibold'>
                                                                 The modern StudyNotion is That dictates it's own terms. Today, to be a competitive specialist requires more than professional Skills
                                                         </div>
-                                                                <CTAButton active={true} linkto={"/signup"}>
-                                                                        Learn More
-                                                                </CTAButton>
+                                                        <CTAButton active={true} linkto={"/signup"}>
+                                                                Learn More
+                                                        </CTAButton>
                                                 </div>
                                         </div>
 
-                                        <TimelineSection/>
+                                        <TimelineSection />
 
-                                        <LearningLanguageSection/>
+                                        <LearningLanguageSection />
                                 </div>
                         </div>
 
                         {/* section : 3 */}
                         <div className='bg-richblack-900 text-white w-11/12 flex flex-col items-center justify-between mx-auto mt-20'>
 
-                                        <InstructorSection/>
+                                <InstructorSection />
 
-                                        <h2 className='text-center text-4xl font-semibold'>
-                                                Reviews from other learners
-                                        </h2>
+                                <h2 className='text-center text-4xl font-semibold mt-[50px]'>
+                                        Reviews from other learners
+                                </h2>
 
-                                        {/* Reviews and rating */}
-                                        {/* <RatingAndReview/> */}
+                                {/* Reviews and rating */}
+                                <ReviewSlider />
                         </div>
 
 
                         {/* Footer */}
-                        <Footer/>
+                        <Footer />
                 </div>
         )
 }
