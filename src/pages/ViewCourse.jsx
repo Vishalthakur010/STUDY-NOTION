@@ -9,32 +9,32 @@ import CourseReviewModal from "../components/core/ViewCourse/CourseReviewModal"
 export const ViewCourse = () => {
 
     const [reviewModal, setReviewModal] = useState(false)
-    const {courseId}=useParams()
-    const {token} = useSelector((state)=>state.auth)
+    const { courseId } = useParams()
+    const { token } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        const setCourseSpecificDetails=async()=>{
+    useEffect(() => {
+        const setCourseSpecificDetails = async () => {
             const courseData = await getFullCourseDetails(courseId, token)
             dispatch(setCourseSectionData(courseData?.courseDetails?.courseContent))
             dispatch(setEntireCourseData(courseData?.courseDetails))
             dispatch(setComplatedLectures(courseData?.complatedVideos))
-            let lectures =0
-            courseData?.courseDetails?.courseContent.forEach((sec)=>{
+            let lectures = 0
+            courseData?.courseDetails?.courseContent.forEach((sec) => {
                 lectures += sec.subSection.length
             })
             dispatch(setTotalNoOfLectures(lectures))
         }
         setCourseSpecificDetails()
-    },[])
+    }, [])
 
 
     return (
         <div>
 
-            <div className="flex">
+            <div className="flex h-[calc(100vh-3.5rem)] bg-richblack-600 overflow-hidden">
                 <VideoDetailsSideBar setReviewModal={setReviewModal} />
-                <div>
+                <div className="w-full bg-richblack-900 overflow-y-auto">
                     <Outlet />
                 </div>
             </div>

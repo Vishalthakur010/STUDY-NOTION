@@ -61,7 +61,7 @@ function VideoDetails() {
     // if this is first video
     const isFirstVideo = () => {
         if (!courseSectionData?.length) return false
-        
+
         const currentSectionIndex = courseSectionData.findIndex(
             (data) => data._id === sectionId
         )
@@ -74,7 +74,7 @@ function VideoDetails() {
     // if this is last video
     const isLastVideo = () => {
         if (!courseSectionData?.length) return false
-        
+
         const currentSectionIndex = courseSectionData.findIndex(
             (data) => data._id === sectionId
         )
@@ -85,7 +85,7 @@ function VideoDetails() {
         )
 
         return currentSectionIndex === courseSectionData.length - 1 &&
-               currentSubSectionIndex === noOfSubSection - 1
+            currentSubSectionIndex === noOfSubSection - 1
     }
 
     // To go next video
@@ -140,9 +140,9 @@ function VideoDetails() {
     // To handle Lecture completion
     const handleLectureCompletion = async (courseId, subSectionId) => {
         if (!courseId || !subSectionId) return
-        
+
         setLoading(true)
-        const res = await markLectureAsCompleted({ courseId:courseId, subSectionId:subSectionId }, token)
+        const res = await markLectureAsCompleted({ courseId: courseId, subSectionId: subSectionId }, token)
         if (res) {
             dispatch(updateCompletedLectures(subSectionId))
         }
@@ -166,7 +166,7 @@ function VideoDetails() {
                     onEnded={() => setVideoEnded(true)}
                 />
                 {videoEnded && (
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-black bg-opacity-50 flex flex-col gap-2">
+                    <div className="absolute top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] p-4 flex flex-col items-center justify-center gap-2">
                         {!completedLectures.includes(subSectionId) && (
                             <IconBtn
                                 disabled={loading}
@@ -174,22 +174,28 @@ function VideoDetails() {
                                 onclick={() => handleLectureCompletion(courseId, subSectionId)}
                             />
                         )}
-                        <IconBtn
-                            text="Rewatch"
-                            disabled={loading}
-                            onclick={() => {
-                                if (playerRef?.current) {
-                                    playerRef.current.seekTo(0)
-                                    setVideoEnded(false)
-                                }
-                            }}
-                        />
-                        <div className="flex gap-2">
+
+                        {/* Rewatch button */}
+                        <div>
+                            <IconBtn
+                                text="Rewatch"
+                                disabled={loading}
+                                onclick={() => {
+                                    if (playerRef?.current) {
+                                        playerRef.current.seekTo(0)
+                                        setVideoEnded(false)
+                                    }
+                                }}
+                            />
+                        </div>
+
+                        {/* Previous and Next button */}
+                        <div className="flex gap-4 mt-4">
                             {!isFirstVideo() && (
                                 <button
                                     disabled={loading}
                                     onClick={goToPrevVideo}
-                                    className="blackbutton"
+                                    className="blackButton"
                                 >
                                     Previous
                                 </button>
@@ -198,7 +204,7 @@ function VideoDetails() {
                                 <button
                                     disabled={loading}
                                     onClick={goToNextVideo}
-                                    className="blackbutton"
+                                    className="blackButton"
                                 >
                                     Next
                                 </button>
@@ -208,8 +214,8 @@ function VideoDetails() {
                 )}
             </div>
             <div className="mt-4">
-                <h1 className="text-2xl font-bold">{videoData.title}</h1>
-                <p className="text-richblack-300">{videoData.description}</p>
+                <h1 className="mt-4 text-3xl font-semibold text-richblack-5">{videoData.title}</h1>
+                <p className="pt-2 pb-6 text-richblack-5">{videoData.description}</p>
             </div>
         </div>
     )

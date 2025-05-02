@@ -70,3 +70,7 @@
 .form-style{
   @apply text-richblack-5 placeholder:text-richblack-400 text-[16px] leading-[24px] focus:outline-none bg-richblack-700 p-3 rounded-lg shadow-sm shadow-richblack-100
 }
+
+.blackButton {
+  @apply cursor-pointer rounded-md bg-richblack-800 px-[20px] py-[8px] font-semibold text-richblack-5;
+}
