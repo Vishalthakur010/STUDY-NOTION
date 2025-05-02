@@ -58,7 +58,6 @@ exports.createSubsection = async (req, res) => {
     }
 }
 
-//HW
 // update subsection
 exports.updateSubsection = async (req, res) => {
     try {

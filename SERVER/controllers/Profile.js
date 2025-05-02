@@ -193,77 +193,69 @@ exports.updateDisplayPicture = async (req, res) => {
     }
 }
 
-//get enrolled courses
+// Get User Enrolled Courses
 exports.getEnrolledCourses = async (req, res) => {
     try {
-        //get user id
         const userId = req.user.id
-
-        //fetching userDetails and enrolled courses
-        let userDetails = await User.findById(userId)
+        const userDetails = await User.findById(userId)
             .populate({
                 path: "courses",
                 populate: {
                     path: "courseContent",
                     populate: {
-                        path: "subSection"
-                    }
-                }
-            }).exec()
-
-
-        userDetails = userDetails.toObject()
-        var SubsectionLength = 0
-        for (var i = 0; i < userDetails.courses.length; i++) {
-            let totalDurationInSeconds = 0
-            SubsectionLength = 0
-            for (var j = 0; j < userDetails.courses[i].courseContent.length; j++) {
-                totalDurationInSeconds += userDetails.courses[i].courseContent[
-                    j
-                ].subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
-                userDetails.courses[i].totalDuration = convertSecondsToDuration(
-                    totalDurationInSeconds
-                )
-                SubsectionLength +=
-                    userDetails.courses[i].courseContent[j].subSection.length
-            }
-            let courseProgressCount = await CourseProgress.findOne({
-                courseID: userDetails.courses[i]._id,
-                userId: userId,
+                        path: "subSection",
+                    },
+                },
             })
-            courseProgressCount = courseProgressCount?.completedVideos.length
-            if (SubsectionLength === 0) {
-                userDetails.courses[i].progressPercentage = 100
-            } else {
-                // To make it up to 2 decimal point
-                const multiplier = Math.pow(10, 2)
-                userDetails.courses[i].progressPercentage =
-                    Math.round(
-                        (courseProgressCount / SubsectionLength) * 100 * multiplier
-                    ) / multiplier
-            }
-        }
-
+            .exec()
 
         if (!userDetails) {
-            return res.status(400).json({
+            return res.status(404).json({
                 success: false,
                 message: `Could not find user with id: ${userId}`,
             })
         }
-        // console.log("userDetails", userDetails)
+
+        const enrolledCourses = userDetails.courses
+        const courseProgress = await CourseProgress.find({ userID: userId })
+
+        // Calculate progress for each course
+        const coursesWithProgress = enrolledCourses.map(course => {
+            const courseProgressData = courseProgress.find(
+                progress => progress.courseID.toString() === course._id.toString()
+            )
+
+            let totalSubSections = 0
+            let completedSubSections = 0
+
+            // Calculate total subsections and completed subsections
+            course.courseContent.forEach(section => {
+                totalSubSections += section.subSection.length
+                if (courseProgressData) {
+                    completedSubSections += section.subSection.filter(subSec => 
+                        courseProgressData.completedVideo.includes(subSec._id.toString())
+                    ).length
+                }
+            })
+
+            const progressPercentage = totalSubSections > 0 
+                ? Math.round((completedSubSections / totalSubSections) * 100)
+                : 0
+
+            return {
+                ...course.toObject(),
+                progressPercentage
+            }
+        })
 
         return res.status(200).json({
             success: true,
-            data: userDetails.courses
+            data: coursesWithProgress,
         })
-    }
-    catch (error) {
-        console.log("error in getEnrolledCourses controller : ", error)
-        res.status(500).json({
+    } catch (error) {
+        return res.status(500).json({
             success: false,
-            error: error.message,
-            message: "Failed to get Enrolled courses details"
+            message: error.message,
         })
     }
 }

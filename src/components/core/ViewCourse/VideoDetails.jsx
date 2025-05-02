@@ -4,7 +4,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { markLectureAsCompleted } from "../../../services/operations/courseDetailsAPI"
 import { updateCompletedLectures } from "../../../slices/viewCourseSlice"
 import ReactPlayer from 'react-player'
-import { BsPlayCircle } from "react-icons/bs";
 import { IconBtn } from "../../common/IconBtn"
 
 function VideoDetails() {
@@ -222,4 +221,3 @@ function VideoDetails() {
 }
 
 export default VideoDetails
-// 170 :- 1:05
