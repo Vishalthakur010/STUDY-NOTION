@@ -6,6 +6,7 @@ const { convertSecondsToDuration } = require('../utils/secToDuration')
 const CourseProgress = require('../models/CourseProgress')
 const Section = require('../models/Section')
 const SubSection = require('../models/SubSection')
+const RatingAndReview = require('../models/RatingAndReview')
 
 //createCourse handler function
 exports.createCourse = async (req, res) => {
@@ -395,6 +396,7 @@ exports.getInstructorCourses = async (req, res) => {
 exports.deleteCourse = async (req, res) => {
     try {
         const { courseId } = req.body
+        const userId = req.user.id
 
         //find the course
         const course = await Course.findById(courseId)
@@ -405,12 +407,26 @@ exports.deleteCourse = async (req, res) => {
         //unenroll students from the course
         const studentsEnrolled = course.studentEnrolled
         for (const studentId of studentsEnrolled) {
+            // Remove course from user's courses array
             await User.findByIdAndUpdate(studentId,
                 {
-                    $pull: { courses: courseId }
+                    $pull: { 
+                        courses: courseId,
+                        courseProgress: { $in: course.courseProgress }
+                    }
                 }
             )
         }
+
+        //delete course progress documents
+        await CourseProgress.deleteMany({
+            courseID: courseId
+        })
+
+        //delete rating and reviews
+        await RatingAndReview.deleteMany({
+            course: courseId
+        })
 
         //delete sections and subsections
         const courseSections = course.courseContent
@@ -427,12 +443,28 @@ exports.deleteCourse = async (req, res) => {
             await Section.findByIdAndDelete(sectionId)
         }
 
+        //remove course from category
+        await Category.findByIdAndUpdate(
+            course.category,
+            {
+                $pull: { course: courseId }
+            }
+        )
+
+        //remove course from instructor's courses array
+        await User.findByIdAndUpdate(
+            course.instructor,
+            {
+                $pull: { courses: courseId }
+            }
+        )
+
         //delete the course
         await Course.findByIdAndDelete(courseId)
 
         return res.status(200).json({
             success: true,
-            message: "course deleted successfully"
+            message: "Course deleted successfully"
         })
     }
     catch (error) {
@@ -440,7 +472,7 @@ exports.deleteCourse = async (req, res) => {
         res.status(500).json({
             success: false,
             error: error.message,
-            message: "Failed to delete courses"
+            message: "Failed to delete course"
         })
     }
 }

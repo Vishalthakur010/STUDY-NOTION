@@ -230,4 +230,3 @@ export const CourseDetails = () => {
         </div>
     )
 }
-// 168 - 16 min

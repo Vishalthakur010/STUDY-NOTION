@@ -15,9 +15,6 @@ exports.uploadImageToCloudinary = async (file,folder,height,quality) => {
     }
     catch (error) {
         console.log("error in imageUploader controller: ", error)
-        res.status(500).json({
-            success: false,
-            message:"error while processing uploadImageToCloudinary"
-        })
+        throw new Error(`Failed to upload image: ${error.message}`)
     }
 }

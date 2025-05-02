@@ -209,40 +209,49 @@ exports.getEnrolledCourses = async (req, res) => {
                         path: "subSection"
                     }
                 }
-            })
-            .exec()
+            }).exec()
 
 
         userDetails = userDetails.toObject()
-
-        // Calculate progress for each course
-        for (const course of userDetails.courses) {
-            // Calculate total subsections
-            let totalSubsections = 0
+        var SubsectionLength = 0
+        for (var i = 0; i < userDetails.courses.length; i++) {
             let totalDurationInSeconds = 0
-
-            for (const section of course.courseContent) {
-                totalSubsections += section.subSection.length
-                totalDurationInSeconds += section.subSection.reduce(
-                    (acc, curr) => acc + parseInt(curr.timeDuration || 0),
-                    0
+            SubsectionLength = 0
+            for (var j = 0; j < userDetails.courses[i].courseContent.length; j++) {
+                totalDurationInSeconds += userDetails.courses[i].courseContent[
+                    j
+                ].subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
+                userDetails.courses[i].totalDuration = convertSecondsToDuration(
+                    totalDurationInSeconds
                 )
+                SubsectionLength +=
+                    userDetails.courses[i].courseContent[j].subSection.length
             }
-
-            // Get completed videos count
-            const courseProgress = await CourseProgress.findOne({
-                courseID: course._id,
-                userID: userId
+            let courseProgressCount = await CourseProgress.findOne({
+                courseID: userDetails.courses[i]._id,
+                userId: userId,
             })
-
-            const completedVideosCount = courseProgress?.completedVideo?.length || 0
-
-            // Calculate progress percentage
-            course.totalDuration = convertSecondsToDuration(totalDurationInSeconds)
-            course.progressPercentage = totalSubsections === 0 
-                ? 100 
-                : Math.round((completedVideosCount / totalSubsections) * 100 * 100) / 100
+            courseProgressCount = courseProgressCount?.completedVideos.length
+            if (SubsectionLength === 0) {
+                userDetails.courses[i].progressPercentage = 100
+            } else {
+                // To make it up to 2 decimal point
+                const multiplier = Math.pow(10, 2)
+                userDetails.courses[i].progressPercentage =
+                    Math.round(
+                        (courseProgressCount / SubsectionLength) * 100 * multiplier
+                    ) / multiplier
+            }
         }
+
+
+        if (!userDetails) {
+            return res.status(400).json({
+                success: false,
+                message: `Could not find user with id: ${userId}`,
+            })
+        }
+        // console.log("userDetails", userDetails)
 
         return res.status(200).json({
             success: true,
@@ -253,8 +262,8 @@ exports.getEnrolledCourses = async (req, res) => {
         console.log("error in getEnrolledCourses controller : ", error)
         res.status(500).json({
             success: false,
-            message: "Failed to get enrolled courses details",
-            error: error.message
+            error: error.message,
+            message: "Failed to get Enrolled courses details"
         })
     }
 }
