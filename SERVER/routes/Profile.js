@@ -15,7 +15,8 @@ const{
     deleteAccount,
     getAllUserDetails,
     updateDisplayPicture,
-    getEnrolledCourses
+    getEnrolledCourses,
+    instructorDashboard
 }=require('../controllers/Profile')
 
 router.put('/updateProfile',auth, updateProfile) //checked
@@ -23,5 +24,6 @@ router.put('/updateDisplayPicture',auth, updateDisplayPicture) //checked
 router.get('/getAllUserDetails',auth, getAllUserDetails) //checked
 router.delete('/deleteAccount',auth, deleteAccount) //checked
 router.get('/getEnrolledCourses', auth, getEnrolledCourses) //checked
+router.get("/instructorDashboard", auth, isInstructor, instructorDashboard)
 
 module.exports=router

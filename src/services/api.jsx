@@ -12,7 +12,8 @@ export const endpoints = {
 //PROFILE ENDPOINTS
 export const PROFILE_ENDPOINT={
         GET_USER_ENROLLED_COURSES_API : BASE_URL + "/profile/getEnrolledCourses", //checked
-        GET_USER_DETAILS_API : BASE_URL + "/profile/getAllUserDetails"
+        GET_USER_DETAILS_API : BASE_URL + "/profile/getAllUserDetails",
+        GET_INSTRUCTOR_DATA_API: BASE_URL+"/profile/instructorDashboard"
 }
 
 // STUDENT ENDPOINTS

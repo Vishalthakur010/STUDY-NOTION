@@ -259,3 +259,34 @@ exports.getEnrolledCourses = async (req, res) => {
         })
     }
 }
+
+// Instructor Dashboard
+exports.instructorDashboard= async (req,res)=>{
+    try{
+        const courseDetails =await Course.find({instructor:req.user.id})
+
+        const courseData= courseDetails.map((course)=> {
+            const totalStudentEnrolled= course.studentEnrolled.length
+            const totalAmountGenerated= totalStudentEnrolled * course.price
+
+            // create a new object with additional fields
+            const courseDataWithStats= {
+                _id:course._id,
+                courseName:course.courseName,
+                courseDescription:course.coursedescription,
+                totalStudentEnrolled,
+                totalAmountGenerated
+            }
+            return courseDataWithStats
+        })
+        return res.status(200).json({courses:courseData})
+    }
+    catch (error) {
+        console.log("error in instructorDashboard controller: ", error)
+        res.status(500).json({
+            success: false,
+            error: error.message,
+            message: "Failed to get Instructor Dashboard"
+        })
+    }
+}
